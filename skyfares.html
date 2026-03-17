@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyfares - Book Your Next Adventure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --teal: #0abfbc;
+            --teal-dark: #079a97;
+            --orange: #ff6b35;
+            --orange-light: #ff8c5a;
+            --dark: #1a1a2e;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --text-gray: #6c757d;
+            --shadow: 0 8px 32px rgba(0,0,0,0.12);
+            --shadow-lg: 0 16px 48px rgba(0,0,0,0.18);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ─── NAV ─── */
+        nav {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--white);
+        }
+
+        .logo-icon {
+            background: var(--white);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-lang {
+            color: var(--white);
+            font-size: 0.85rem;
+        }
+
+        .btn-assistant {
+            background: var(--orange);
+            color: var(--white);
+            padding: 0.5rem 1.4rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .btn-assistant:hover {
+            background: var(--orange-light);
+            transform: translateY(-1px);
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 88vh;
+            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center top;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 7rem 4% 4rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10,191,188,0.72) 0%, rgba(7,130,128,0.68) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+            max-width: 1300px;
+        }
+
+        .hero h1 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--white);
+            text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ─── HERO BOTTOM ROW: search + flexistay ad ─── */
+        .hero-bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 1.2rem;
+            align-items: start;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* ─── FLEXISTAY HERO AD ─── */
+        .flexistay-hero-ad {
+            background: linear-gradient(160deg, #0f172a 0%, #1a2744 55%, #0d1f1f 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        .flexistay-hero-ad:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 28px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1);
+        }
+
+        .fad-img-strip {
+            position: relative;
+            height: 148px;
+            overflow: hidden;
+        }
+
+        .fad-img-strip img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.65;
+        }
+
+        .fad-img-strip::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 30%, #0f172a 100%);
+        }
+
+        .fad-sponsored {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(6px);
+            color: rgba(255,255,255,0.55);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.12);
+            z-index: 2;
+        }
+
+        .fad-photo-grid {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2px;
+            padding: 2px;
+            z-index: 1;
+        }
+
+        .fad-photo-grid img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 3px;
+            opacity: 0.9;
+        }
+
+        .fad-body {
+            padding: 1rem 1.2rem 1.3rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .fad-badge-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .fad-badge-new {
+            background: linear-gradient(135deg, #F97316, #F43F5E);
+            color: white;
+            font-size: 0.62rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 50px;
+            letter-spacing: 0.4px;
+        }
+
+        .fad-badge-premium {
+            background: rgba(10,191,188,0.15);
+            border: 1px solid rgba(10,191,188,0.35);
+            color: #0abfbc;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 50px;
+        }
+
+        .fad-headline {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .fad-headline span {
+            background: linear-gradient(90deg, #F97316, #F43F5E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .fad-desc {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.5;
+        }
+
+        .fad-perks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+
+        .fad-perk {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.68rem;
+            color: rgba(255,255,255,0.55);
+        }
+
+        .fad-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-top: auto;
+            padding-top: 0.3rem;
+        }
+
+        .fad-cta-btn {
+            background: linear-gradient(135deg, #F97316, #F43F5E);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.3rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(249,115,22,0.4);
+            flex-shrink: 0;
+        }
+
+        .fad-price {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .fad-price strong {
+            color: #F97316;
+            font-size: 0.82rem;
+        }
+
+        .fad-accent-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #F97316, #F43F5E, #0abfbc);
+        }
+
+        @media (max-width: 1100px) {
+            .hero-bottom-row { grid-template-columns: 1fr; }
+            .flexistay-hero-ad { display: none; }
+        }
+
+        /* ─── SEARCH CARD ─── */
+        .search-card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .search-tabs {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem 0;
+            gap: 0.4rem;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.45rem 1rem;
+            border-radius: 50px;
+            border: 2px solid transparent;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: none;
+            color: var(--text-gray);
+            font-family: 'Poppins', sans-serif;
+            transition: 0.2s;
+        }
+
+        .tab-btn.active {
+            border-color: var(--orange);
+            color: var(--orange);
+            background: #fff5f0;
+        }
+
+        .tab-btn:hover:not(.active) { background: var(--light-gray); }
+
+        .trip-options {
+            margin-left: auto;
+            display: flex;
+            gap: 1rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .trip-options label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-gray);
+            cursor: pointer;
+        }
+
+        .trip-options input[type="radio"] { accent-color: var(--orange); }
+
+        .search-fields {
+            display: grid;
+            grid-template-columns: 1.3fr 1.3fr 1fr 1fr 1fr;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .field-group {
+            padding: 0.9rem 1.2rem;
+            border-right: 1px solid #f0f0f0;
+        }
+
+        .field-group:last-child { border-right: none; }
+
+        .field-group label {
+            display: block;
+            font-size: 0.68rem;
+            color: var(--text-gray);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .field-group input,
+        .field-group select {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+            background: transparent;
+        }
+
+        .field-group input::placeholder { color: #bbb; font-weight: 500; font-size: 0.9rem; }
+
+        .field-sub {
+            font-size: 0.68rem;
+            color: var(--text-gray);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .search-btn-row {
+            padding: 1rem 1.5rem 1.3rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-btn {
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 4rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+        }
+
+        .search-btn:hover {
+            background: var(--orange-light);
+            transform: translateY(-2px);
+        }
+
+        /* ─── DEALS ─── */
+        .deals-section {
+            padding: 3rem 4%;
+            background: var(--white);
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1.2fr;
+            gap: 1.2rem;
+        }
+
+        .deal-main-card {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.5rem;
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .deal-main-card img.bg {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.22;
+        }
+
+        .deal-main-card > * { position: relative; }
+
+        .deal-badge {
+            background: var(--orange);
+            color: white;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+
+        .deal-title { font-size: 1.4rem; font-weight: 900; font-family: 'Nunito', sans-serif; line-height: 1.2; }
+        .deal-savings { font-size: 1.2rem; font-weight: 900; font-family: 'Nunito', sans-serif; margin-top: 8px; }
+        .deal-sub { font-size: 0.75rem; opacity: 0.8; margin: 2px 0 6px; }
+        .deal-code { font-size: 0.7rem; opacity: 0.65; margin-bottom: 10px; }
+
+        .deal-btn {
+            background: var(--orange);
+            color: white;
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.2s;
+            display: inline-block;
+        }
+
+        .deal-btn:hover { background: var(--orange-light); }
+
+        .deal-col-mid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .deal-small {
+            background: #fff8f0;
+            border-radius: 14px;
+            padding: 1rem;
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            flex: 1;
+        }
+
+        .deal-small img {
+            width: 65px; height: 65px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .deal-small-badge { background: #e8f5e9; color: #2e7d32; font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 50px; display: inline-block; margin-bottom: 4px; }
+        .deal-small-title { font-size: 0.78rem; font-weight: 700; color: var(--dark); }
+        .deal-small-code { font-size: 0.68rem; color: var(--text-gray); margin-top: 2px; }
+
+        .deal-hotel-card {
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: var(--shadow);
+            background: #fce4ec;
+        }
+
+        .deal-hotel-card img {
+            width: 45%;
+            object-fit: cover;
+        }
+
+        .deal-hotel-content {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .deal-hotel-title { font-size: 1.1rem; font-weight: 900; font-family: 'Nunito', sans-serif; }
+        .deal-hotel-highlight { font-size: 1rem; font-weight: 800; color: var(--orange); margin-top: 4px; }
+        .deal-hotel-sub { font-size: 0.72rem; color: var(--text-gray); margin-top: 4px; }
+
+        /* ─── HOT DEALS ─── */
+        .hot-deals {
+            padding: 3rem 4%;
+            background: var(--light-gray);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            font-family: 'Nunito', sans-serif;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-sub { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 1.5rem; }
+
+        .dest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .dest-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            background: white;
+        }
+
+        .dest-card:hover { transform: translateY(-5px); }
+
+        .dest-card img {
+            width: 100%; height: 165px;
+            object-fit: cover;
+        }
+
+        .dest-card-body { padding: 1rem; }
+
+        .dest-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .dest-card h3 { font-size: 0.95rem; font-weight: 700; }
+
+        .dest-price {
+            background: #e8f4fd;
+            color: #0056b3;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.82rem;
+        }
+
+        .dest-card p { font-size: 0.78rem; color: var(--text-gray); }
+
+        /* ─── FEATURES ─── */
+        .features {
+            padding: 3rem 4%;
+            background: var(--white);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--light-gray);
+            border-radius: 16px;
+            padding: 1.8rem;
+            text-align: center;
+        }
+
+        .feature-icon { font-size: 2rem; margin-bottom: 0.7rem; }
+        .feature-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 5px; }
+        .feature-card p { font-size: 0.82rem; color: var(--text-gray); }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 2.5rem 4%;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-links a { font-size: 0.82rem; opacity: 0.7; transition: 0.2s; }
+        .footer-links a:hover { opacity: 1; color: var(--orange); }
+        footer p { font-size: 0.78rem; opacity: 0.45; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            .search-fields { grid-template-columns: 1fr 1fr; }
+            .deals-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+            .trip-options { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .search-fields { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.7rem; }
+            .deal-hotel-card { flex-direction: column; }
+            .deal-hotel-card img { width: 100%; height: 140px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+    <div class="logo">
+        <div class="logo-icon">✈️</div>
+        SkyFares
+    </div>
+    <ul class="nav-links">
+        <li><a href="#">Flights</a></li>
+        <li><a href="#" onclick="document.getElementById('priceDropModal').style.display='flex'; return false;">Price Drop Protection</a></li>
+        <li><a href="#" onclick="document.getElementById('priceIndicatorModal').style.display='flex'; return false;">🔮 Price Predictor</a></li>
+        <li><a href="#" onclick="document.getElementById('termsModal').style.display='flex'; return false;">Terms & Conditions</a></li>
+        <li><a href="#" onclick="document.getElementById('instantRefundModal').style.display='flex'; return false;">Instant Refund</a></li>
+        <li><a href="#" onclick="openFlexiStay(); return false;">🏡 FlexiStay</a></li>
+    </ul>
+    <div class="nav-right">
+        <span class="nav-lang">🌐 English</span>
+        <a href="https://wa.me/919817377960" target="_blank" class="btn-assistant">Get Assistant</a>
+    </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Ready To Take Off?</h1>
+
+        <div class="hero-bottom-row">
+
+        <!-- Search Card -->
+        <div class="search-card">
+            <div class="search-tabs">
+                <button class="tab-btn active">✈️ Flight</button>
+                <button class="tab-btn">🏨 Hotels</button>
+                <button class="tab-btn">🚕 Cabs</button>
+                <button class="tab-btn">🗺️ Tour</button>
+                <div class="trip-options">
+                    <label><input type="radio" name="trip"> One Way</label>
+                    <label><input type="radio" name="trip" checked> Round Way</label>
+                    <label><input type="radio" name="trip"> Multi City</label>
+                </div>
+            </div>
+
+            <div class="search-fields">
+                <div class="field-group">
+                    <label>FROM</label>
+                    <input type="text" placeholder="City or Airport" id="from">
+                    <div class="field-sub">e.g. Delhi, Indira Gandhi Intl Airport</div>
+                </div>
+                <div class="field-group">
+                    <label>TO</label>
+                    <input type="text" placeholder="City or Airport" id="to">
+                    <div class="field-sub">e.g. Mumbai, Chhatrapati Shivaji Intl</div>
+                </div>
+                <div class="field-group">
+                    <label>JOURNEY DATE</label>
+                    <input type="date" id="departure">
+                    <div class="field-sub">Select date</div>
+                </div>
+                <div class="field-group">
+                    <label>RETURN DATE</label>
+                    <input type="date" id="returnDate">
+                    <div class="field-sub">Select date</div>
+                </div>
+                <div class="field-group">
+                    <label>TRAVELER, CLASS</label>
+                    <select id="travelers">
+                        <option>1 Adult</option>
+                        <option>2 Adults</option>
+                        <option>2 Adults, 1 Child</option>
+                    </select>
+                    <div class="field-sub">Economy</div>
+                </div>
+            </div>
+
+            <div class="search-btn-row">
+                <button class="search-btn" onclick="sendToWhatsApp()">Search</button>
+            </div>
+            <!-- Free Cancellation Bar -->
+            <div style="border-top:1px solid #f0f0f0; padding:0.75rem 1.5rem; display:flex; align-items:center; gap:0.8rem; background:#fafafa; border-radius:0 0 20px 20px; flex-wrap:wrap;">
+                <label style="display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none;">
+                    <input type="checkbox" style="width:16px; height:16px; accent-color:#0abfbc; cursor:pointer;">
+                    <span style="font-size:0.82rem; font-weight:700; color:#1a1a2e;">Always opt for Free Cancellation</span>
+                </label>
+                <span style="color:#ddd;">•</span>
+                <span style="font-size:0.78rem; color:#555; display:flex; align-items:center; gap:5px;">&#8377;0 cancellation fee</span>
+                <span style="color:#ddd;">•</span>
+                <span style="font-size:0.78rem; color:#555; display:flex; align-items:center; gap:5px;">No-questions-asked instant refunds</span>
+                <span style="color:#ddd;">•</span>
+                <span style="font-size:0.78rem; color:#555; display:flex; align-items:center; gap:5px;">Priority customer service</span>
+            </div>
+        </div>
+        <!-- /Search Card -->
+
+        <!-- FlexiStay Hero Ad Panel -->
+        <div class="flexistay-hero-ad" onclick="openFlexiStay()">
+            <div class="fad-accent-bar"></div>
+
+            <div class="fad-img-strip">
+                <div class="fad-photo-grid">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=300&q=70" alt="">
+                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=300&q=70" alt="">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=300&q=70" alt="">
+                </div>
+                <div class="fad-sponsored">Sponsored</div>
+            </div>
+
+            <div class="fad-body">
+                <div class="fad-badge-row">
+                    <span class="fad-badge-new">🏡 NEW ON SKYFARES</span>
+                    <span class="fad-badge-premium">✦ Premium Stays</span>
+                </div>
+
+                <div class="fad-headline">
+                    Stay Anywhere,<br>
+                    <span>Pay Your Way.</span>
+                </div>
+
+                <div class="fad-desc">
+                    Handpicked villas, homestays &amp; boutique hotels across India. Flexible check-in, zero hidden charges.
+                </div>
+
+                <div class="fad-perks">
+                    <div class="fad-perk">✅ Free Cancellation</div>
+                    <div class="fad-perk">⚡ Instant Booking</div>
+                    <div class="fad-perk">🎁 Up to 35% Off</div>
+                    <div class="fad-perk">🇮🇳 1000+ Properties</div>
+                </div>
+
+                <div class="fad-cta">
+                    <button class="fad-cta-btn" onclick="openFlexiStay()">Explore Now →</button>
+                    <div class="fad-price">Starting from<br><strong>₹999/night</strong></div>
+                </div>
+            </div>
+        </div>
+        <!-- /FlexiStay Hero Ad -->
+
+        </div><!-- /hero-bottom-row -->
+    </div>
+</section>
+
+<!-- ─── DEALS ─── -->
+<section class="deals-section">
+    <div class="deals-grid">
+        <div class="deal-main-card" style="background: linear-gradient(135deg,#1565c0,#283593);">
+            <img class="bg" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80" alt="">
+            <div>
+                <span class="deal-badge">Enjoy</span>
+                <div class="deal-title">Flat 2025<br>discount<br><span style="font-size:0.85rem;font-weight:600;">on flights</span></div>
+            </div>
+            <div>
+                <div class="deal-savings">Rs 2,000 <span style="font-size:0.85rem;font-weight:500;">Savings</span></div>
+                <div class="deal-sub">on Int'l Air Tickets</div>
+                <div class="deal-code">Use Code: SKYFARES2025</div>
+                <button class="deal-btn">Book Now</button>
+            </div>
+        </div>
+
+        <div class="deal-col-mid">
+            <div class="deal-small">
+                <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=200&q=80" alt="">
+                <div>
+                    <span class="deal-small-badge">12% Discount</span>
+                    <div class="deal-small-title">On Domestic Hotel & Resort Booking for Banks</div>
+                    <div class="deal-small-code">🎁 SKYFARES2000</div>
+                </div>
+            </div>
+            <div class="deal-small">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&q=80" alt="">
+                <div>
+                    <span class="deal-small-badge" style="background:#e3f2fd;color:#1565c0;">0% EMI</span>
+                    <div class="deal-small-title">On Domestic Hotel & Resort Booking for Banks</div>
+                    <div class="deal-small-code">🎁 SKYFARES2000</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="deal-hotel-card">
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80" alt="hotel">
+            <div class="deal-hotel-content">
+                <div>
+                    <div class="deal-hotel-title">Megasale</div>
+                    <div class="deal-hotel-highlight">Get 35%<br>Hotel Discount</div>
+                    <div class="deal-hotel-sub">Limited time offer on premium properties</div>
+                </div>
+                <button class="deal-btn">Claim Now</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── TRENDING DESTINATIONS ─── -->
+<section class="hot-deals">
+    <div class="section-title">🔥 Trending Destinations</div>
+    <p class="section-sub">Discover the most popular places our travelers are visiting this month.</p>
+    <div class="dest-grid">
+        <div class="dest-card">
+            <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80" alt="Paris">
+            <div class="dest-card-body">
+                <div class="dest-card-header">
+                    <h3>Paris, France</h3>
+                    <span class="dest-price">Rs 40,000</span>
+                </div>
+                <p>Round trip from New York</p>
+                <p style="margin-top:5px;font-size:0.72rem;color:#888;">✈️ Direct flights available</p>
+            </div>
+        </div>
+        <div class="dest-card">
+            <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" alt="Bali">
+            <div class="dest-card-body">
+                <div class="dest-card-header">
+                    <h3>Bali, Indonesia</h3>
+                    <span class="dest-price">Rs 59,000</span>
+                </div>
+                <p>Round trip from London</p>
+                <p style="margin-top:5px;font-size:0.72rem;color:#888;">✈️ 1 Stopover</p>
+            </div>
+        </div>
+        <div class="dest-card">
+            <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&q=80" alt="Venice">
+            <div class="dest-card-body">
+                <div class="dest-card-header">
+                    <h3>Venice, Italy</h3>
+                    <span class="dest-price">$380</span>
+                </div>
+                <p>Round trip from Berlin</p>
+                <p style="margin-top:5px;font-size:0.72rem;color:#888;">✈️ Direct flights available</p>
+            </div>
+        </div>
+        <div class="dest-card">
+            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80" alt="Dubai">
+            <div class="dest-card-body">
+                <div class="dest-card-header">
+                    <h3>Dubai, UAE</h3>
+                    <span class="dest-price">Rs 35,000</span>
+                </div>
+                <p>Round trip from Mumbai</p>
+                <p style="margin-top:5px;font-size:0.72rem;color:#888;">✈️ Direct flights available</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section class="features">
+    <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Best Price Guarantee</h3>
+        <p>We match any price you find online for the same flight.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>Secure Booking</h3>
+        <p>Your data is protected with industry-standard encryption.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">🎧</div>
+        <h3>24/7 Support</h3>
+        <p>Our travel experts are here to help you anytime, anywhere.</p>
+    </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+    <div class="footer-logo">✈️ Skyfares</div>
+    <div class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact</a>
+    </div>
+    <p>&copy; 2026 Skyfares Inc. All rights reserved.</p>
+</footer>
+
+<!-- ─── PRICE INDICATOR MODAL ─── -->
+<div id="priceIndicatorModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+    <div style="background:white; border-radius:20px; max-width:700px; width:100%; max-height:92vh; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.35);">
+
+        <!-- Header -->
+        <div style="background:linear-gradient(135deg,#1a1a2e,#0abfbc); padding:1.5rem 2rem; display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
+            <div>
+                <h2 style="color:white; font-family:'Nunito',sans-serif; font-size:1.4rem; font-weight:900;">🔮 Flight Price Predictor</h2>
+                <p style="color:rgba(255,255,255,0.75); font-size:0.78rem; margin-top:3px;">AI-powered prediction — Should you buy now or wait?</p>
+            </div>
+            <button onclick="document.getElementById('priceIndicatorModal').style.display='none'" style="background:rgba(255,255,255,0.15); border:none; color:white; width:36px; height:36px; border-radius:50%; font-size:1.2rem; cursor:pointer;">✕</button>
+        </div>
+
+        <!-- Body -->
+        <div style="overflow-y:auto; padding:1.8rem 2rem; flex:1;">
+
+            <!-- Form -->
+            <div id="pi_form">
+                <h3 style="color:#0abfbc; font-size:0.95rem; font-weight:800; margin-bottom:1rem; display:flex; align-items:center; gap:8px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900;">1</span>
+                    Enter Your Flight Details
+                </h3>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div>
+                        <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">From</label>
+                        <input id="pi_from" type="text" placeholder="e.g. Delhi" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">To</label>
+                        <input id="pi_to" type="text" placeholder="e.g. Mumbai" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div>
+                        <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Travel Date</label>
+                        <input id="pi_date" type="date" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Current Price (Rs)</label>
+                        <input id="pi_price" type="number" placeholder="e.g. 4500" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div>
+                        <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Airline</label>
+                        <select id="pi_airline" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none; background:white;">
+                            <option value="">Select Airline</option>
+                            <option>IndiGo</option>
+                            <option>Air India</option>
+                            <option>SpiceJet</option>
+                            <option>Vistara</option>
+                            <option>GoFirst</option>
+                            <option>AirAsia India</option>
+                            <option>International Airline</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Trip Type</label>
+                        <select id="pi_trip" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none; background:white;">
+                            <option>One Way</option>
+                            <option>Round Trip</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
+                    <div>
+                        <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Seat Class</label>
+                        <select id="pi_class" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none; background:white;">
+                            <option>Economy</option>
+                            <option>Business</option>
+                            <option>First Class</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Passengers</label>
+                        <select id="pi_pax" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none; background:white;">
+                            <option>1 Adult</option>
+                            <option>2 Adults</option>
+                            <option>3 Adults</option>
+                            <option>2 Adults, 1 Child</option>
+                            <option>Family (4+)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="predictPrice()" style="width:100%; background:linear-gradient(135deg,#1a1a2e,#0abfbc); color:white; border:none; padding:0.9rem; border-radius:12px; font-size:1rem; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; transition:0.3s;">
+                    🔮 Predict Price Now
+                </button>
+            </div>
+
+            <!-- Result Section (hidden initially) -->
+            <div id="pi_result" style="display:none;">
+
+                <!-- Analyzing animation -->
+                <div id="pi_loading" style="text-align:center; padding:2rem;">
+                    <div style="font-size:2.5rem; margin-bottom:1rem;">⏳</div>
+                    <p style="font-weight:700; color:#1a1a2e; font-size:1rem;">Analyzing flight data...</p>
+                    <p style="font-size:0.82rem; color:#888; margin-top:4px;">Checking historical trends, demand & seasonality</p>
+                    <div style="margin-top:1.2rem; background:#f0f0f0; border-radius:50px; height:8px; overflow:hidden;">
+                        <div id="pi_progress" style="background:linear-gradient(90deg,#0abfbc,#ff6b35); height:100%; width:0%; border-radius:50px; transition:width 0.1s;"></div>
+                    </div>
+                </div>
+
+                <!-- Final prediction card -->
+                <div id="pi_prediction" style="display:none;">
+
+                    <!-- Verdict Banner -->
+                    <div id="pi_verdict_banner" style="border-radius:16px; padding:1.5rem; text-align:center; margin-bottom:1.5rem;">
+                        <div id="pi_verdict_icon" style="font-size:3rem; margin-bottom:0.5rem;"></div>
+                        <div id="pi_verdict_title" style="font-size:1.4rem; font-weight:900; font-family:'Nunito',sans-serif; margin-bottom:4px;"></div>
+                        <div id="pi_verdict_sub" style="font-size:0.88rem; opacity:0.85;"></div>
+                    </div>
+
+                    <!-- Price Meter -->
+                    <div style="background:#f8f9fa; border-radius:14px; padding:1.2rem; margin-bottom:1.2rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+                            <span style="font-size:0.82rem; font-weight:700; color:#888;">PRICE TREND METER</span>
+                            <span id="pi_meter_label" style="font-size:0.78rem; font-weight:700;"></span>
+                        </div>
+                        <div style="background:#e0e0e0; border-radius:50px; height:12px; overflow:hidden; position:relative;">
+                            <div style="position:absolute; left:0; top:0; bottom:0; width:33%; background:#22c55e; border-radius:50px 0 0 50px;"></div>
+                            <div style="position:absolute; left:33%; top:0; bottom:0; width:34%; background:#f59e0b;"></div>
+                            <div style="position:absolute; left:67%; top:0; bottom:0; width:33%; background:#ef4444; border-radius:0 50px 50px 0;"></div>
+                            <div id="pi_needle" style="position:absolute; top:-3px; width:18px; height:18px; background:white; border:3px solid #1a1a2e; border-radius:50%; transition:left 1s ease; transform:translateX(-50%);"></div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-top:5px;">
+                            <span style="font-size:0.68rem; color:#22c55e; font-weight:700;">DROP ↓</span>
+                            <span style="font-size:0.68rem; color:#f59e0b; font-weight:700;">STABLE</span>
+                            <span style="font-size:0.68rem; color:#ef4444; font-weight:700;">RISE ↑</span>
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.8rem; margin-bottom:1.2rem;">
+                        <div style="background:#f8f9fa; border-radius:12px; padding:1rem; text-align:center;">
+                            <div style="font-size:0.68rem; font-weight:700; color:#888; text-transform:uppercase; margin-bottom:4px;">Current Price</div>
+                            <div id="pi_curr_price" style="font-size:1.1rem; font-weight:900; color:#1a1a2e; font-family:'Nunito',sans-serif;"></div>
+                        </div>
+                        <div style="background:#f8f9fa; border-radius:12px; padding:1rem; text-align:center;">
+                            <div style="font-size:0.68rem; font-weight:700; color:#888; text-transform:uppercase; margin-bottom:4px;">Predicted Price</div>
+                            <div id="pi_pred_price" style="font-size:1.1rem; font-weight:900; font-family:'Nunito',sans-serif;"></div>
+                        </div>
+                        <div style="background:#f8f9fa; border-radius:12px; padding:1rem; text-align:center;">
+                            <div style="font-size:0.68rem; font-weight:700; color:#888; text-transform:uppercase; margin-bottom:4px;">Confidence</div>
+                            <div id="pi_confidence" style="font-size:1.1rem; font-weight:900; font-family:'Nunito',sans-serif; color:#0abfbc;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Factors -->
+                    <div style="background:#f8f9fa; border-radius:14px; padding:1.2rem; margin-bottom:1.2rem;">
+                        <div style="font-size:0.82rem; font-weight:700; color:#555; margin-bottom:0.8rem;">📊 Factors Analysed:</div>
+                        <div id="pi_factors" style="display:flex; flex-direction:column; gap:6px;"></div>
+                    </div>
+
+                    <!-- Recommendation Box -->
+                    <div id="pi_recommendation" style="border-radius:14px; padding:1.2rem; text-align:center; margin-bottom:1rem;"></div>
+
+                    <!-- Try Again -->
+                    <button onclick="resetPredictor()" style="width:100%; background:#f0f0f0; color:#555; border:none; padding:0.7rem; border-radius:10px; font-size:0.88rem; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif;">🔄 Predict Another Flight</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ─── INSTANT REFUND MODAL ─── -->
+<div id="instantRefundModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+    <div style="background:white; border-radius:20px; max-width:680px; width:100%; max-height:90vh; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+        <div style="background:linear-gradient(135deg,#0abfbc,#079a97); padding:1.5rem 2rem; display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
+            <div>
+                <h2 style="color:white; font-family:'Nunito',sans-serif; font-size:1.4rem; font-weight:900;">💸 Instant Refund Request</h2>
+                <p style="color:rgba(255,255,255,0.8); font-size:0.78rem; margin-top:3px;">Fill details below — we'll process your refund ASAP</p>
+            </div>
+            <button onclick="closeRefundModal()" style="background:rgba(255,255,255,0.2); border:none; color:white; width:36px; height:36px; border-radius:50%; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+        </div>
+        <div style="overflow-y:auto; padding:1.8rem 2rem; flex:1;">
+            <h3 style="color:#0abfbc; font-size:0.95rem; font-weight:800; margin-bottom:1rem; display:flex; align-items:center; gap:8px;">
+                <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900;">1</span>
+                Flight Details to Cancel
+            </h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                <div>
+                    <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Passenger Name</label>
+                    <input id="rf_name" type="text" placeholder="Full name on ticket" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                </div>
+                <div>
+                    <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Phone Number</label>
+                    <input id="rf_phone" type="tel" placeholder="Your contact number" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                <div>
+                    <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">PNR / Booking ID</label>
+                    <input id="rf_pnr" type="text" placeholder="e.g. ABC123" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                </div>
+                <div>
+                    <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Airline Name</label>
+                    <input id="rf_airline" type="text" placeholder="e.g. IndiGo, Air India" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                <div>
+                    <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">From</label>
+                    <input id="rf_from" type="text" placeholder="Departure city" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                </div>
+                <div>
+                    <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">To</label>
+                    <input id="rf_to" type="text" placeholder="Arrival city" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
+                <div>
+                    <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Flight Date</label>
+                    <input id="rf_date" type="date" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                </div>
+                <div>
+                    <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Ticket Amount (Rs)</label>
+                    <input id="rf_amount" type="number" placeholder="e.g. 5000" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+                </div>
+            </div>
+            <hr style="border:none; border-top:1px solid #f0f0f0; margin:0 0 1.5rem;">
+            <h3 style="color:#0abfbc; font-size:0.95rem; font-weight:800; margin-bottom:1rem; display:flex; align-items:center; gap:8px;">
+                <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900;">2</span>
+                Select Refund Type
+            </h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
+                <div id="card_normal" onclick="selectRefund('normal')" style="border:2px solid #e0e0e0; border-radius:14px; padding:1.2rem; cursor:pointer; text-align:center;">
+                    <div style="font-size:1.8rem; margin-bottom:6px;">🕐</div>
+                    <div style="font-weight:800; font-size:0.9rem; color:#1a1a2e; margin-bottom:4px;">Normal Refund</div>
+                    <div style="font-size:0.75rem; color:#888; line-height:1.5;">Processed in 7–14 business days. Standard deductions apply.</div>
+                    <div style="margin-top:8px; background:#f0f0f0; color:#555; padding:3px 10px; border-radius:50px; font-size:0.72rem; font-weight:700; display:inline-block;">FREE</div>
+                </div>
+                <div id="card_instant" onclick="selectRefund('instant')" style="border:2px solid #e0e0e0; border-radius:14px; padding:1.2rem; cursor:pointer; text-align:center;">
+                    <div style="font-size:1.8rem; margin-bottom:6px;">⚡</div>
+                    <div style="font-weight:800; font-size:0.9rem; color:#1a1a2e; margin-bottom:4px;">Instant Refund</div>
+                    <div style="font-size:0.75rem; color:#888; line-height:1.5;">Get refund within 2–4 hours to your UPI. Small fee applies.</div>
+                    <div style="margin-top:8px; background:#fff5f0; color:#ff6b35; padding:3px 10px; border-radius:50px; font-size:0.72rem; font-weight:700; display:inline-block;">2–4 HRS ⚡</div>
+                </div>
+            </div>
+            <hr style="border:none; border-top:1px solid #f0f0f0; margin:0 0 1.5rem;">
+            <h3 style="color:#0abfbc; font-size:0.95rem; font-weight:800; margin-bottom:1rem; display:flex; align-items:center; gap:8px;">
+                <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900;">3</span>
+                Refund to UPI
+            </h3>
+            <div style="margin-bottom:1rem;">
+                <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">UPI ID</label>
+                <input id="rf_upi" type="text" placeholder="e.g. name@upi or 9876543210@paytm" style="width:100%; padding:0.7rem 0.9rem; border:1.5px solid #e0e0e0; border-radius:10px; font-size:0.88rem; font-family:'Poppins',sans-serif; outline:none;" onfocus="this.style.borderColor='#0abfbc'" onblur="this.style.borderColor='#e0e0e0'">
+            </div>
+            <div style="margin-bottom:1.5rem;">
+                <label style="display:block; font-size:0.72rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">UPI App</label>
+                <div id="upiAppSelected" style="display:none; font-size:0.78rem; color:#0abfbc; font-weight:700; margin-top:4px;"></div>
+                <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:6px;">
+                    <button onclick="selectUPI(this,'GPay')" style="padding:0.4rem 1rem; border:1.5px solid #e0e0e0; border-radius:50px; font-size:0.8rem; font-weight:600; cursor:pointer; background:white; font-family:'Poppins',sans-serif;">🟢 GPay</button>
+                    <button onclick="selectUPI(this,'PhonePe')" style="padding:0.4rem 1rem; border:1.5px solid #e0e0e0; border-radius:50px; font-size:0.8rem; font-weight:600; cursor:pointer; background:white; font-family:'Poppins',sans-serif;">🟣 PhonePe</button>
+                    <button onclick="selectUPI(this,'Paytm')" style="padding:0.4rem 1rem; border:1.5px solid #e0e0e0; border-radius:50px; font-size:0.8rem; font-weight:600; cursor:pointer; background:white; font-family:'Poppins',sans-serif;">🔵 Paytm</button>
+                    <button onclick="selectUPI(this,'BHIM')" style="padding:0.4rem 1rem; border:1.5px solid #e0e0e0; border-radius:50px; font-size:0.8rem; font-weight:600; cursor:pointer; background:white; font-family:'Poppins',sans-serif;">🟠 BHIM</button>
+                    <button onclick="selectUPI(this,'Other')" style="padding:0.4rem 1rem; border:1.5px solid #e0e0e0; border-radius:50px; font-size:0.8rem; font-weight:600; cursor:pointer; background:white; font-family:'Poppins',sans-serif;">Other</button>
+                </div>
+            </div>
+            <div style="background:#fff5f0; border-left:4px solid #ff6b35; border-radius:0 10px 10px 0; padding:0.8rem 1rem; font-size:0.8rem; color:#555; line-height:1.7;">
+                ⚠️ Please double-check your UPI ID. Wrong details may delay your refund.
+            </div>
+        </div>
+        <div style="padding:1rem 2rem; border-top:1px solid #eee; display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
+            <button onclick="closeRefundModal()" style="background:#f0f0f0; color:#555; border:none; padding:0.6rem 1.5rem; border-radius:50px; font-weight:700; font-size:0.88rem; cursor:pointer; font-family:'Poppins',sans-serif;">Cancel</button>
+            <button onclick="submitRefundToWhatsApp()" style="background:#25d366; color:white; border:none; padding:0.6rem 2rem; border-radius:50px; font-weight:700; font-size:0.88rem; cursor:pointer; font-family:'Poppins',sans-serif;">💬 Submit via WhatsApp</button>
+        </div>
+    </div>
+</div>
+
+<!-- ─── PRICE DROP MODAL ─── -->
+<div id="priceDropModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+    <div style="background:white; border-radius:20px; max-width:720px; width:100%; max-height:85vh; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+
+        <!-- Header -->
+        <div style="background:linear-gradient(135deg,#0abfbc,#079a97); padding:1.5rem 2rem; display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
+            <div>
+                <h2 style="color:white; font-family:'Nunito',sans-serif; font-size:1.4rem; font-weight:900;">📉 Price Drop Protection</h2>
+                <p style="color:rgba(255,255,255,0.8); font-size:0.78rem; margin-top:3px;">Book with confidence — we've got you covered</p>
+            </div>
+            <button onclick="document.getElementById('priceDropModal').style.display='none'" style="background:rgba(255,255,255,0.2); border:none; color:white; width:36px; height:36px; border-radius:50%; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+        </div>
+
+        <!-- Body -->
+        <div style="overflow-y:auto; padding:2rem; flex:1;">
+
+            <!-- Hero Banner -->
+            <div style="background:linear-gradient(135deg,#e8f8f8,#d0f4f4); border-radius:14px; padding:1.5rem; text-align:center; margin-bottom:1.5rem;">
+                <div style="font-size:2.5rem; margin-bottom:0.5rem;">🛡️</div>
+                <h3 style="font-family:'Nunito',sans-serif; font-size:1.2rem; font-weight:900; color:#079a97;">If the price drops after you book, we refund the difference!</h3>
+                <p style="font-size:0.82rem; color:#555; margin-top:6px;">No questions asked. Your savings are guaranteed.</p>
+            </div>
+
+            <!-- How it works -->
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#0abfbc; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900;">1</span>
+                    How It Works
+                </h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.8rem;">
+                    <div style="background:#f8f9fa; border-radius:12px; padding:1rem; text-align:center;">
+                        <div style="font-size:1.8rem; margin-bottom:6px;">✈️</div>
+                        <div style="font-size:0.78rem; font-weight:700; color:#1a1a2e;">Book Flight</div>
+                        <div style="font-size:0.7rem; color:#888; margin-top:3px;">Book any eligible flight on Skyfares</div>
+                    </div>
+                    <div style="background:#f8f9fa; border-radius:12px; padding:1rem; text-align:center;">
+                        <div style="font-size:1.8rem; margin-bottom:6px;">📊</div>
+                        <div style="font-size:0.78rem; font-weight:700; color:#1a1a2e;">We Monitor</div>
+                        <div style="font-size:0.7rem; color:#888; margin-top:3px;">We track prices for 72 hours</div>
+                    </div>
+                    <div style="background:#f8f9fa; border-radius:12px; padding:1rem; text-align:center;">
+                        <div style="font-size:1.8rem; margin-bottom:6px;">💰</div>
+                        <div style="font-size:0.78rem; font-weight:700; color:#1a1a2e;">Get Refund</div>
+                        <div style="font-size:0.7rem; color:#888; margin-top:3px;">Difference credited to your wallet</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="border:none; border-top:1px solid #f0f0f0; margin:1.2rem 0;">
+
+            <!-- Eligibility -->
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#0abfbc; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900;">2</span>
+                    Eligibility Conditions
+                </h3>
+                <ul style="list-style:none; padding:0;">
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Valid for up to 72 hours after booking.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Applicable on select domestic and international routes.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Price difference refunded as Skyfares wallet credits.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Cannot be combined with other promotional offers.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Only applicable on same flight, same class bookings.</li>
+                </ul>
+            </div>
+
+            <hr style="border:none; border-top:1px solid #f0f0f0; margin:1.2rem 0;">
+
+            <!-- Important Note -->
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#0abfbc; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900;">3</span>
+                    Important Notes
+                </h3>
+                <div style="background:#fff5f0; border-left:4px solid #ff6b35; border-radius:0 10px 10px 0; padding:0.8rem 1rem; font-size:0.82rem; color:#555; line-height:1.7;">
+                    ⚠️ Wallet credits expire within 12 months. Cannot be converted to cash. Skyfares reserves the right to modify this policy at any time.
+                </div>
+            </div>
+
+            <!-- WhatsApp -->
+            <div style="background:linear-gradient(135deg,#0abfbc15,#0abfbc08); border:1px solid #0abfbc40; border-radius:14px; padding:1.2rem; text-align:center; margin-top:1.5rem;">
+                <p style="font-size:0.85rem; color:#555; margin-bottom:0.8rem;">Want to know if your booking is eligible? Ask us!</p>
+                <a href="https://wa.me/919817377960" target="_blank" style="display:inline-flex; align-items:center; gap:8px; background:#25d366; color:white; padding:0.6rem 1.5rem; border-radius:50px; font-weight:700; font-size:0.85rem; text-decoration:none;">💬 Chat on WhatsApp</a>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div style="padding:1rem 2rem; border-top:1px solid #eee; display:flex; justify-content:flex-end; flex-shrink:0;">
+            <button onclick="document.getElementById('priceDropModal').style.display='none'" style="background:#ff6b35; color:white; border:none; padding:0.6rem 2rem; border-radius:50px; font-weight:700; font-size:0.88rem; cursor:pointer; font-family:'Poppins',sans-serif;">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- ─── TERMS MODAL ─── -->
+<div id="termsModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+    <div style="background:white; border-radius:20px; max-width:720px; width:100%; max-height:85vh; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+        
+        <!-- Modal Header -->
+        <div style="background:linear-gradient(135deg,#0abfbc,#079a97); padding:1.5rem 2rem; display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
+            <div>
+                <h2 style="color:white; font-family:'Nunito',sans-serif; font-size:1.4rem; font-weight:900;">📋 Terms & Conditions</h2>
+                <p style="color:rgba(255,255,255,0.8); font-size:0.78rem; margin-top:3px;">Last Updated: March 2026</p>
+            </div>
+            <button onclick="document.getElementById('termsModal').style.display='none'" style="background:rgba(255,255,255,0.2); border:none; color:white; width:36px; height:36px; border-radius:50%; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+        </div>
+
+        <!-- Modal Body (Scrollable) -->
+        <div style="overflow-y:auto; padding:2rem; flex:1;">
+
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#0abfbc; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900; flex-shrink:0;">1</span>
+                    Acceptance of Terms
+                </h3>
+                <p style="font-size:0.85rem; color:#444; line-height:1.8;">By accessing or using Skyfares services, you agree to be bound by these Terms & Conditions. If you do not agree, you may not use our services.</p>
+            </div>
+            <hr style="border:none; border-top:1px solid #f0f0f0; margin:1.2rem 0;">
+
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#0abfbc; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900; flex-shrink:0;">2</span>
+                    Booking & Reservations
+                </h3>
+                <ul style="list-style:none; padding:0;">
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; padding-left:1.2rem; position:relative; margin-bottom:4px;">✈️ &nbsp;Bookings confirmed only after full payment is received.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; padding-left:1.2rem; position:relative; margin-bottom:4px;">✈️ &nbsp;Ticket prices subject to change until payment is completed.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; padding-left:1.2rem; position:relative; margin-bottom:4px;">✈️ &nbsp;You must provide accurate passenger details at booking.</li>
+                </ul>
+            </div>
+            <hr style="border:none; border-top:1px solid #f0f0f0; margin:1.2rem 0;">
+
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#0abfbc; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900; flex-shrink:0;">3</span>
+                    Cancellation & Refund Policy
+                </h3>
+                <div style="background:#fff5f0; border-left:4px solid #ff6b35; border-radius:0 10px 10px 0; padding:0.8rem 1rem; margin-bottom:0.8rem; font-size:0.82rem; color:#555; line-height:1.7;">
+                    ⚠️ Cancellation charges vary by airline. Skyfares charges Rs 300–500 per passenger for processing.
+                </div>
+                <ul style="list-style:none; padding:0;">
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Refund requests must be raised 24 hours before departure.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Refunds processed within 7–14 business days.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Instant Refund applies only to eligible bookings.</li>
+                </ul>
+            </div>
+            <hr style="border:none; border-top:1px solid #f0f0f0; margin:1.2rem 0;">
+
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#0abfbc; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900; flex-shrink:0;">4</span>
+                    Price Drop Protection
+                </h3>
+                <ul style="list-style:none; padding:0;">
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Protection valid for up to 72 hours after booking.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Price difference refunded as Skyfares wallet credits.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Cannot be combined with other promotional offers.</li>
+                </ul>
+            </div>
+            <hr style="border:none; border-top:1px solid #f0f0f0; margin:1.2rem 0;">
+
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#0abfbc; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900; flex-shrink:0;">5</span>
+                    User Responsibilities
+                </h3>
+                <ul style="list-style:none; padding:0;">
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Ensure all passenger information is accurate.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Carry valid government-issued ID or passport for travel.</li>
+                    <li style="font-size:0.85rem; color:#444; line-height:1.8; margin-bottom:4px;">✈️ &nbsp;Arrive at airport on time as per airline guidelines.</li>
+                </ul>
+            </div>
+            <hr style="border:none; border-top:1px solid #f0f0f0; margin:1.2rem 0;">
+
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#0abfbc; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900; flex-shrink:0;">6</span>
+                    Privacy & Data
+                </h3>
+                <p style="font-size:0.85rem; color:#444; line-height:1.8;">Skyfares collects your personal data solely for booking purposes. We do not sell your data to third parties. Your data is protected with industry-standard encryption.</p>
+            </div>
+            <hr style="border:none; border-top:1px solid #f0f0f0; margin:1.2rem 0;">
+
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#0abfbc; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                    <span style="background:#0abfbc; color:white; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:900; flex-shrink:0;">7</span>
+                    Limitation of Liability
+                </h3>
+                <p style="font-size:0.85rem; color:#444; line-height:1.8;">Skyfares is not liable for flight delays or cancellations made by airlines.</p>
+                <div style="background:#fff5f0; border-left:4px solid #ff6b35; border-radius:0 10px 10px 0; padding:0.8rem 1rem; margin-top:0.8rem; font-size:0.82rem; color:#555;">
+                    💡 We strongly recommend purchasing travel insurance for international trips.
+                </div>
+            </div>
+
+            <!-- WhatsApp Contact -->
+            <div style="background:linear-gradient(135deg,#0abfbc15,#0abfbc08); border:1px solid #0abfbc40; border-radius:14px; padding:1.2rem; text-align:center; margin-top:1.5rem;">
+                <p style="font-size:0.85rem; color:#555; margin-bottom:0.8rem;">Have questions? Our team is available 24/7.</p>
+                <a href="https://wa.me/919817377960" target="_blank" style="display:inline-flex; align-items:center; gap:8px; background:#25d366; color:white; padding:0.6rem 1.5rem; border-radius:50px; font-weight:700; font-size:0.85rem; text-decoration:none;">💬 Chat on WhatsApp</a>
+            </div>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div style="padding:1rem 2rem; border-top:1px solid #eee; display:flex; justify-content:flex-end; flex-shrink:0;">
+            <button onclick="document.getElementById('termsModal').style.display='none'" style="background:#ff6b35; color:white; border:none; padding:0.6rem 2rem; border-radius:50px; font-weight:700; font-size:0.88rem; cursor:pointer; font-family:'Poppins',sans-serif;">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function sendToWhatsApp() {
+    const from = document.getElementById('from').value;
+    const to = document.getElementById('to').value;
+    const departure = document.getElementById('departure').value;
+    const returnDate = document.getElementById('returnDate').value;
+    const travelers = document.getElementById('travelers').value;
+
+    if (!from || !to) {
+        alert('Please fill From and To fields!');
+        return;
+    }
+
+    const message = `✈️ *New Flight Enquiry - Skyfares*
+
+*From:* ${from}
+*To:* ${to}
+*Departure:* ${departure || 'Not specified'}
+*Return:* ${returnDate || 'Not specified'}
+*Travelers:* ${travelers}`;
+
+    window.open(`https://wa.me/919817377960?text=${encodeURIComponent(message)}`, '_blank');
+}
+
+// ─── PRICE PREDICTOR ───
+function predictPrice() {
+    const from = document.getElementById('pi_from').value;
+    const to = document.getElementById('pi_to').value;
+    const date = document.getElementById('pi_date').value;
+    const price = document.getElementById('pi_price').value;
+
+    if (!from || !to || !date || !price) {
+        alert('Please fill all fields!');
+        return;
+    }
+
+    document.getElementById('pi_form').style.display = 'none';
+    document.getElementById('pi_result').style.display = 'block';
+    document.getElementById('pi_loading').style.display = 'block';
+    document.getElementById('pi_prediction').style.display = 'none';
+
+    // Animate progress bar
+    let prog = 0;
+    const interval = setInterval(() => {
+        prog += 2;
+        document.getElementById('pi_progress').style.width = prog + '%';
+        if (prog >= 100) {
+            clearInterval(interval);
+            showPrediction(from, to, date, parseInt(price));
+        }
+    }, 40);
+}
+
+function showPrediction(from, to, date, price) {
+    document.getElementById('pi_loading').style.display = 'none';
+    document.getElementById('pi_prediction').style.display = 'block';
+
+    const travelDate = new Date(date);
+    const today = new Date();
+    const daysLeft = Math.ceil((travelDate - today) / (1000 * 60 * 60 * 24));
+    const airline = document.getElementById('pi_airline').value;
+    const seatClass = document.getElementById('pi_class').value;
+    const month = travelDate.getMonth(); // 0-11
+
+    // ── Smart Scoring Logic ──
+    let score = 50; // neutral
+    let factors = [];
+
+    // Days to departure
+    if (daysLeft <= 3) {
+        score += 30;
+        factors.push({ icon: '🔴', text: 'Only ' + daysLeft + ' days left — prices spike near departure', impact: 'high' });
+    } else if (daysLeft <= 7) {
+        score += 20;
+        factors.push({ icon: '🟠', text: daysLeft + ' days left — last-minute prices rising fast', impact: 'medium' });
+    } else if (daysLeft <= 14) {
+        score += 10;
+        factors.push({ icon: '🟡', text: '2 weeks left — slight upward pressure on prices', impact: 'low' });
+    } else if (daysLeft <= 30) {
+        score -= 5;
+        factors.push({ icon: '🟢', text: '3–4 weeks left — prices relatively stable', impact: 'low' });
+    } else if (daysLeft <= 60) {
+        score -= 15;
+        factors.push({ icon: '🟢', text: '1–2 months ahead — good time to find deals', impact: 'medium' });
+    } else {
+        score -= 20;
+        factors.push({ icon: '🟢', text: 'Far in advance — prices likely to drop or hold', impact: 'high' });
+    }
+
+    // Peak season (Oct-Jan = peak India travel)
+    if (month >= 9 || month <= 1) {
+        score += 15;
+        factors.push({ icon: '🔴', text: 'Peak holiday season — high demand, prices rising', impact: 'high' });
+    } else if (month >= 5 && month <= 7) {
+        score += 10;
+        factors.push({ icon: '🟠', text: 'Summer vacation season — elevated demand', impact: 'medium' });
+    } else {
+        score -= 10;
+        factors.push({ icon: '🟢', text: 'Off-peak season — demand is lower, prices stable', impact: 'medium' });
+    }
+
+    // Day of week (travel date)
+    const dayOfWeek = travelDate.getDay();
+    if (dayOfWeek === 5 || dayOfWeek === 0) {
+        score += 10;
+        factors.push({ icon: '🟠', text: 'Weekend travel date — higher demand expected', impact: 'medium' });
+    } else if (dayOfWeek === 2 || dayOfWeek === 3) {
+        score -= 10;
+        factors.push({ icon: '🟢', text: 'Mid-week travel — typically cheaper flights', impact: 'medium' });
+    }
+
+    // Seat class
+    if (seatClass === 'Business' || seatClass === 'First Class') {
+        score += 8;
+        factors.push({ icon: '🟡', text: 'Premium cabin — prices tend to hold or rise', impact: 'low' });
+    }
+
+    // Price check vs average
+    const avgDomestic = 4500;
+    if (price < avgDomestic * 0.7) {
+        score -= 15;
+        factors.push({ icon: '🟢', text: 'Price is below average — great deal, book now!', impact: 'high' });
+    } else if (price > avgDomestic * 1.4) {
+        score += 10;
+        factors.push({ icon: '🔴', text: 'Price is above average — may drop if you wait', impact: 'medium' });
+    } else {
+        factors.push({ icon: '🟡', text: 'Price is near market average — fair deal', impact: 'low' });
+    }
+
+    score = Math.max(5, Math.min(95, score));
+
+    // ── Determine verdict ──
+    let verdict, verdictIcon, verdictColor, verdictBg, recommendation, predPrice, confidence;
+    const change = Math.round((score - 50) * 0.6);
+
+    if (score >= 65) {
+        verdict = 'BOOK NOW!';
+        verdictIcon = '🚀';
+        verdictColor = '#ef4444';
+        verdictBg = 'linear-gradient(135deg,#fef2f2,#fee2e2)';
+        predPrice = 'Rs ' + Math.round(price * (1 + change / 100)).toLocaleString('en-IN');
+        confidence = Math.round(60 + (score - 65) * 0.8) + '%';
+        recommendation = `<div style="background:linear-gradient(135deg,#fef2f2,#fee2e2); border:2px solid #ef4444; border-radius:12px; padding:1rem;">
+            <div style="font-size:1.1rem; font-weight:900; color:#ef4444; font-family:'Nunito',sans-serif; margin-bottom:4px;">⚠️ Price is likely to INCREASE by ~${change}%</div>
+            <div style="font-size:0.82rem; color:#555; line-height:1.6;">Based on our analysis, waiting will cost you more. <strong>Book your ticket now</strong> to save Rs ${Math.round(price * change / 100).toLocaleString('en-IN')}!</div>
+        </div>`;
+    } else if (score >= 50) {
+        verdict = 'BOOK SOON';
+        verdictIcon = '⏰';
+        verdictColor = '#f59e0b';
+        verdictBg = 'linear-gradient(135deg,#fffbeb,#fef3c7)';
+        predPrice = 'Rs ' + Math.round(price * (1 + change / 100)).toLocaleString('en-IN');
+        confidence = Math.round(55 + (score - 50) * 0.5) + '%';
+        recommendation = `<div style="background:linear-gradient(135deg,#fffbeb,#fef3c7); border:2px solid #f59e0b; border-radius:12px; padding:1rem;">
+            <div style="font-size:1.1rem; font-weight:900; color:#d97706; font-family:'Nunito',sans-serif; margin-bottom:4px;">🟡 Price may rise slightly (~${change}%)</div>
+            <div style="font-size:0.82rem; color:#555; line-height:1.6;">Prices are moderately stable but trending upward. Consider booking <strong>within 2–3 days</strong> for best value.</div>
+        </div>`;
+    } else {
+        const drop = Math.abs(change);
+        verdict = 'WAIT & SAVE!';
+        verdictIcon = '💰';
+        verdictColor = '#22c55e';
+        verdictBg = 'linear-gradient(135deg,#f0fdf4,#dcfce7)';
+        predPrice = 'Rs ' + Math.round(price * (1 - drop / 100)).toLocaleString('en-IN');
+        confidence = Math.round(55 + (50 - score) * 0.6) + '%';
+        recommendation = `<div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7); border:2px solid #22c55e; border-radius:12px; padding:1rem;">
+            <div style="font-size:1.1rem; font-weight:900; color:#16a34a; font-family:'Nunito',sans-serif; margin-bottom:4px;">✅ Price likely to DROP by ~${drop}%</div>
+            <div style="font-size:0.82rem; color:#555; line-height:1.6;">Good news! Prices are expected to fall. <strong>Wait a few days</strong> and you could save up to Rs ${Math.round(price * drop / 100).toLocaleString('en-IN')}!</div>
+        </div>`;
+    }
+
+    // ── Render Results ──
+    const banner = document.getElementById('pi_verdict_banner');
+    banner.style.background = verdictBg;
+    banner.style.border = '2px solid ' + verdictColor;
+    document.getElementById('pi_verdict_icon').innerText = verdictIcon;
+    document.getElementById('pi_verdict_title').style.color = verdictColor;
+    document.getElementById('pi_verdict_title').innerText = verdict;
+    document.getElementById('pi_verdict_sub').style.color = verdictColor;
+    document.getElementById('pi_verdict_sub').innerText = from.toUpperCase() + ' → ' + to.toUpperCase() + '  |  ' + new Date(date).toDateString();
+
+    // Needle position
+    setTimeout(() => {
+        document.getElementById('pi_needle').style.left = score + '%';
+    }, 300);
+
+    // Meter label
+    const mLabel = document.getElementById('pi_meter_label');
+    if (score >= 65) { mLabel.style.color = '#ef4444'; mLabel.innerText = '🔴 HIGH RISE RISK'; }
+    else if (score >= 50) { mLabel.style.color = '#f59e0b'; mLabel.innerText = '🟡 SLIGHT RISE'; }
+    else { mLabel.style.color = '#22c55e'; mLabel.innerText = '🟢 LIKELY DROP'; }
+
+    // Stats
+    document.getElementById('pi_curr_price').innerText = 'Rs ' + price.toLocaleString('en-IN');
+    document.getElementById('pi_pred_price').innerText = predPrice;
+    document.getElementById('pi_pred_price').style.color = score >= 50 ? '#ef4444' : '#22c55e';
+    document.getElementById('pi_confidence').innerText = confidence;
+
+    // Factors
+    const factorHTML = factors.map(f => `
+        <div style="display:flex; align-items:flex-start; gap:8px; font-size:0.8rem; color:#444;">
+            <span style="flex-shrink:0;">${f.icon}</span>
+            <span>${f.text}</span>
+        </div>`).join('');
+    document.getElementById('pi_factors').innerHTML = factorHTML;
+
+    // Recommendation
+    document.getElementById('pi_recommendation').innerHTML = recommendation;
+}
+
+function resetPredictor() {
+    document.getElementById('pi_form').style.display = 'block';
+    document.getElementById('pi_result').style.display = 'none';
+    document.getElementById('pi_progress').style.width = '0%';
+    document.getElementById('pi_from').value = '';
+    document.getElementById('pi_to').value = '';
+    document.getElementById('pi_date').value = '';
+    document.getElementById('pi_price').value = '';
+}
+
+// ─── REFUND MODAL ───
+let selectedRefundType = '';
+let selectedUPIApp = '';
+
+function closeRefundModal() {
+    document.getElementById('instantRefundModal').style.display = 'none';
+}
+
+function selectRefund(type) {
+    selectedRefundType = type;
+    document.getElementById('card_normal').style.border = '2px solid #e0e0e0';
+    document.getElementById('card_normal').style.background = 'white';
+    document.getElementById('card_instant').style.border = '2px solid #e0e0e0';
+    document.getElementById('card_instant').style.background = 'white';
+    if (type === 'normal') {
+        document.getElementById('card_normal').style.border = '2px solid #0abfbc';
+        document.getElementById('card_normal').style.background = '#f0fffe';
+    } else {
+        document.getElementById('card_instant').style.border = '2px solid #ff6b35';
+        document.getElementById('card_instant').style.background = '#fff5f0';
+    }
+}
+
+function selectUPI(btn, app) {
+    selectedUPIApp = app;
+    document.querySelectorAll('#instantRefundModal button[onclick^="selectUPI"]').forEach(b => {
+        b.style.border = '1.5px solid #e0e0e0';
+        b.style.background = 'white';
+        b.style.color = '#333';
+    });
+    btn.style.border = '1.5px solid #0abfbc';
+    btn.style.background = '#f0fffe';
+    btn.style.color = '#0abfbc';
+}
+
+function submitRefundToWhatsApp() {
+    const name = document.getElementById('rf_name').value;
+    const phone = document.getElementById('rf_phone').value;
+    const pnr = document.getElementById('rf_pnr').value;
+    const airline = document.getElementById('rf_airline').value;
+    const from = document.getElementById('rf_from').value;
+    const to = document.getElementById('rf_to').value;
+    const date = document.getElementById('rf_date').value;
+    const amount = document.getElementById('rf_amount').value;
+    const upi = document.getElementById('rf_upi').value;
+
+    if (!name || !phone || !pnr) {
+        alert('Please fill Passenger Name, Phone and PNR!');
+        return;
+    }
+    if (!selectedRefundType) {
+        alert('Please select a Refund Type!');
+        return;
+    }
+    if (!upi) {
+        alert('Please enter your UPI ID!');
+        return;
+    }
+
+    const message = `💸 *Refund Request - Skyfares*
+
+✈️ *Flight Details:*
+*Passenger:* ${name}
+*Phone:* ${phone}
+*PNR / Booking ID:* ${pnr}
+*Airline:* ${airline || 'Not specified'}
+*From:* ${from || 'Not specified'}
+*To:* ${to || 'Not specified'}
+*Flight Date:* ${date || 'Not specified'}
+*Ticket Amount:* Rs ${amount || 'Not specified'}
+
+💳 *Refund Details:*
+*Refund Type:* ${selectedRefundType === 'instant' ? '⚡ Instant Refund (2-4 hrs)' : '🕐 Normal Refund (7-14 days)'}
+*UPI ID:* ${upi}
+*UPI App:* ${selectedUPIApp || 'Not selected'}`;
+
+    window.open(`https://wa.me/919817377960?text=${encodeURIComponent(message)}`, '_blank');
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    });
+});
+</script>
+<script>
+function openFlexiStay() {
+  window.open('flexistay.html', '_blank');
+}
+</script>
+
+</body>
+</html>

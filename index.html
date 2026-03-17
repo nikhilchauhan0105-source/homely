@@ -1,0 +1,2372 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.gstatic.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src * data: blob:; connect-src https: wss:;" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>homesstays — India's Favourite Homestay Platform</title>
+    <meta name="description" content="homesstays — India's favourite homestay platform. Discover 10,000+ handpicked stays across India — heritage havelis, beach cottages, mountain retreats and more." />
+    <meta name="keywords" content="homestay india, heritage stay, beach cottage, mountain retreat, eco stay, book homestay online, homesstays" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="homesstays Technologies Pvt. Ltd." />
+    <meta property="og:title" content="homesstays — India's Favourite Homestay Platform" />
+    <meta property="og:description" content="Discover 10,000+ handpicked homesstays. Book beach cottages, mountain retreats, heritage havelis and more across India." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="homesstays" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="homesstays — India's Favourite Homestay Platform" />
+    <meta name="twitter:description" content="Discover 10,000+ handpicked homesstays across India." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80" />
+    <link rel="canonical" href="https://homesstays.in/" />
+
+    <!-- Performance: Preconnect to external origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.gstatic.com" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap&font-display=swap" rel="stylesheet" />
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /></noscript>
+
+    <!-- QRCode lib (deferred for performance) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "homesstays",
+      "url": "https://homesstays.in",
+      "description": "India's favourite homestay platform with 10,000+ handpicked properties",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://homesstays.in/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- Init window.S BEFORE firebase module so firebase can safely access it -->
+    <script>
+      window.S = {
+        user: null,
+        wishlist: new Set(),
+        bookings: [],
+        listings: [],
+        tripBookings: [],
+        guests: { adults: 2, children: 0, infants: 0 },
+        dates: { in: "", out: "" },
+        activeCat: "all",
+        destFilter: "",
+        filters: { maxPrice: 30000, types: [], ams: [] },
+        upiPending: null,
+      };
+      window._FS_IS_ADMIN = false;
+      window._FS_AUTH_READY = false;
+    </script>
+
+    <!-- Firebase (module) -->
+    <script type="module" src="firebase.js"></script>
+
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav id="nav">
+      <div class="nav-logo" onclick="goto('home')">
+        <div class="nav-logo-ico"><i class="fas fa-home"></i></div>
+        homesstays
+      </div>
+      <div class="nav-sb" onclick="openSearchModal()">
+        <div style="flex: 1">
+          <div class="nsb-main">Anywhere · Any week</div>
+          <div class="nsb-sub">Search destinations</div>
+        </div>
+        <button class="nsb-btn"><i class="fas fa-search"></i></button>
+      </div>
+      <!-- Hamburger Menu Button (Mobile Only) -->
+      <button class="hamburger-btn" id="hamburger-btn" onclick="toggleMobileNav()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-right" id="nav-right">
+        <button class="nav-btn" onclick="openHostModal()">Become a Host</button>
+        <button
+          class="nav-btn"
+          onclick="goto('creator-trips')"
+          id="nav-ct-btn"
+          style="display: none"
+        >
+          <i class="fas fa-route" style="margin-right: 4px"></i>Creator Trips
+        </button>
+        <div style="position: relative">
+          <button class="nav-user" id="nav-user-btn" onclick="toggleDD()">
+            <i class="fas fa-user" id="nav-u-ico"></i>
+            <span id="nav-u-init" style="display: none"></span>
+          </button>
+          <div id="user-dd">
+            <div id="dd-out">
+              <div
+                class="dd-item"
+                onclick="
+                  openLoginModal();
+                  hideDD();
+                "
+              >
+                <i class="fas fa-sign-in-alt" style="color: var(--coral)"></i>
+                Sign In
+              </div>
+              <div
+                class="dd-item"
+                onclick="
+                  openRegModal();
+                  hideDD();
+                "
+              >
+                <i class="fas fa-user-plus" style="color: var(--teal)"></i> Sign
+                Up
+              </div>
+              <div class="dd-sep"></div>
+              <div
+                class="dd-item"
+                onclick="
+                  goto('creator-trips');
+                  hideDD();
+                "
+              >
+                <i class="fas fa-route" style="color: #7c3aed"></i> Creator
+                Trips
+              </div>
+              <div
+                class="dd-item"
+                onclick="
+                  goto('admin');
+                  hideDD();
+                "
+              >
+                <i class="fas fa-shield-alt" style="color: var(--gold)"></i>
+                Admin Panel
+              </div>
+              <div class="dd-sep"></div>
+              <div
+                class="dd-item"
+                onclick="window.open('https://wa.me/919999000000?text=Hi%20homesstays%20Support%2C%20I%20need%20help%20with%20my%20booking.','_blank');hideDD();"
+                style="color: #15803d"
+              >
+                <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1rem"></i>
+                WhatsApp Support
+              </div>
+            </div>
+            <div id="dd-in" style="display: none">
+              <div
+                class="dd-item"
+                id="dd-uname"
+                style="
+                  font-weight: 700;
+                  pointer-events: none;
+                  color: var(--coral);
+                "
+              ></div>
+              <div class="dd-sep"></div>
+              <div
+                class="dd-item"
+                onclick="
+                  goto('profile');
+                  hideDD();
+                "
+              >
+                <i class="fas fa-user"></i> My Profile
+              </div>
+              <div
+                class="dd-item"
+                onclick="
+                  goto('profile');
+                  showPTab('bookings');
+                  hideDD();
+                "
+              >
+                <i class="fas fa-calendar-check" style="color: var(--teal)"></i>
+                My Bookings
+              </div>
+              <div
+                class="dd-item"
+                onclick="
+                  goto('profile');
+                  showPTab('wishlist');
+                  hideDD();
+                "
+              >
+                <i class="fas fa-heart" style="color: var(--coral)"></i>
+                Wishlist
+              </div>
+              <div
+                class="dd-item"
+                onclick="
+                  goto('host');
+                  hideDD();
+                "
+              >
+                <i class="fas fa-home" style="color: var(--gold)"></i> Host
+                Dashboard
+              </div>
+              <div
+                class="dd-item"
+                onclick="
+                  goto('creator-trips');
+                  hideDD();
+                "
+              >
+                <i class="fas fa-route" style="color: #7c3aed"></i> Creator
+                Trips
+              </div>
+              <div
+                class="dd-item"
+                onclick="
+                  goto('profile');
+                  showPTab('mytrips');
+                  hideDD();
+                "
+              >
+                <i class="fas fa-ticket-alt" style="color: var(--teal)"></i> My
+                Trip Bookings
+              </div>
+              <div
+                class="dd-item"
+                onclick="
+                  openPlanModal();
+                  hideDD();
+                "
+              >
+                <i class="fas fa-crown" style="color: var(--gold)"></i> Upgrade
+                Plan
+              </div>
+              <div class="dd-sep"></div>
+              <div
+                class="dd-item"
+                onclick="window.open('https://wa.me/919999000000?text=Hi%20homesstays%20Support%2C%20I%20need%20help%20with%20my%20booking.','_blank');hideDD();"
+                style="color: #15803d"
+              >
+                <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1rem"></i>
+                WhatsApp Support
+              </div>
+              <div class="dd-item" onclick="doLogout()">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MOBILE NAVIGATION MENU (Hidden on Desktop, Shown on Mobile) -->
+    <div class="mobile-nav" id="mobile-nav">
+      <div class="mobile-nav-content">
+        <button class="mobile-nav-close" onclick="toggleMobileNav()">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="mobile-nav-item" onclick="goto('home'); toggleMobileNav();">
+          <i class="fas fa-home"></i> Home
+        </div>
+        <div class="mobile-nav-divider"></div>
+        <div class="mobile-nav-item" onclick="openHostModal(); toggleMobileNav();">
+          <i class="fas fa-door-open"></i> Become a Host
+        </div>
+        <div class="mobile-nav-item" id="mobile-nav-ct" onclick="goto('creator-trips'); toggleMobileNav();" style="display: none;">
+          <i class="fas fa-route"></i> Creator Trips
+        </div>
+        <div class="mobile-nav-divider"></div>
+        <div id="mobile-auth-section">
+          <div class="mobile-nav-item" onclick="openLoginModal(); toggleMobileNav();">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </div>
+          <div class="mobile-nav-item" onclick="openRegModal(); toggleMobileNav();">
+            <i class="fas fa-user-plus"></i> Sign Up
+          </div>
+        </div>
+        <div id="mobile-user-section" style="display: none;">
+          <div class="mobile-nav-item" onclick="goto('profile'); toggleMobileNav();">
+            <i class="fas fa-user"></i> My Profile
+          </div>
+          <div class="mobile-nav-item" onclick="goto('profile'); showPTab('bookings'); toggleMobileNav();">
+            <i class="fas fa-calendar-check"></i> My Bookings
+          </div>
+          <div class="mobile-nav-item" onclick="goto('profile'); showPTab('wishlist'); toggleMobileNav();">
+            <i class="fas fa-heart"></i> Wishlist
+          </div>
+          <div class="mobile-nav-item" onclick="goto('host'); toggleMobileNav();">
+            <i class="fas fa-home"></i> Host Dashboard
+          </div>
+          <div class="mobile-nav-item" onclick="goto('creator'); toggleMobileNav();">
+            <i class="fas fa-crown"></i> Creator Zone
+          </div>
+          <div class="mobile-nav-item" onclick="goto('profile'); showPTab('mytrips'); toggleMobileNav();">
+            <i class="fas fa-ticket-alt"></i> My Trip Bookings
+          </div>
+          <div class="mobile-nav-item" onclick="openPlanModal(); toggleMobileNav();">
+            <i class="fas fa-crown"></i> Upgrade Plan
+          </div>
+          <div class="mobile-nav-divider"></div>
+          <div class="mobile-nav-item" onclick="window.open('https://wa.me/919999000000?text=Hi%20homesstays%20Support%2C%20I%20need%20help%20with%20my%20booking.','_blank'); toggleMobileNav();" style="color: #15803d;">
+            <i class="fab fa-whatsapp"></i> WhatsApp Support
+          </div>
+          <div class="mobile-nav-item" onclick="doLogout(); toggleMobileNav();">
+            <i class="fas fa-sign-out-alt"></i> Sign Out
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ HOME ═══ -->
+    <div class="pg on" id="pg-home">
+      <section class="hero">
+        <div class="hero-bg">
+          <img
+            src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80"
+            alt=""
+          />
+        </div>
+        <div class="hero-ov"></div>
+        <div class="hero-content">
+          <div class="hero-badge">
+            <div class="hero-dot"></div>
+            India's #1 Homestay Platform
+          </div>
+          <h1>Find your perfect<br /><em>home away</em> from home</h1>
+          <p class="hero-sub">
+            From Himalayan retreats to Kerala backwaters — discover 10,000+
+            handpicked stays across incredible India.
+          </p>
+          <div class="search-box">
+            <div class="sb-tabs">
+              <div class="sb-tab on">Stays</div>
+              <div class="sb-tab">Experiences</div>
+              <div class="sb-tab">Monthly Stays</div>
+            </div>
+            <div class="sb-fields">
+              <div class="sb-field" onclick="openSearchModal()">
+                <div class="sb-lbl">Where</div>
+                <div class="sb-val ph" id="sb-where">Search destinations</div>
+              </div>
+              <div class="sb-field" onclick="openDatesModal()">
+                <div class="sb-lbl">Check In</div>
+                <div class="sb-val ph" id="sb-checkin">Add dates</div>
+              </div>
+              <div class="sb-field" onclick="openDatesModal()">
+                <div class="sb-lbl">Check Out</div>
+                <div class="sb-val ph" id="sb-checkout">Add dates</div>
+              </div>
+              <div class="sb-field" onclick="openGuestsModal()">
+                <div class="sb-lbl">Guests</div>
+                <div class="sb-val ph" id="sb-guests">Add guests</div>
+              </div>
+              <div class="sb-go">
+                <button class="sb-btn" onclick="doSearch()">
+                  <i class="fas fa-search"></i> Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="h-stat-n">10K+</div>
+            <div class="h-stat-l">Properties</div>
+          </div>
+          <div>
+            <div class="h-stat-n">500+</div>
+            <div class="h-stat-l">Cities</div>
+          </div>
+          <div>
+            <div class="h-stat-n">2M+</div>
+            <div class="h-stat-l">Happy Guests</div>
+          </div>
+          <div>
+            <div class="h-stat-n">4.9★</div>
+            <div class="h-stat-l">Avg Rating</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="cats"><div class="cats-scroll" id="home-cats"></div></div>
+
+      <section class="section">
+        <div class="sec-head">
+          <h2>Featured Stays</h2>
+          <span class="see-all" onclick="goto('stays')">See all →</span>
+        </div>
+        <div class="stays-grid" id="home-stays-grid"></div>
+      </section>
+
+      <section class="section" style="background: white">
+        <div class="sec-head"><h2>Explore by Vibe</h2></div>
+        <div class="vibes-grid" id="vibes-grid"></div>
+      </section>
+
+      <section class="section">
+        <div class="sec-head">
+          <h2>Top Experiences</h2>
+          <span class="see-all" onclick="goto('experiences')">See all →</span>
+        </div>
+        <div class="exp-grid" id="home-exp-grid"></div>
+      </section>
+
+      <section
+        class="section"
+        style="
+          background: linear-gradient(135deg, var(--ink) 0%, #2d2d5c 100%);
+          text-align: center;
+        "
+      >
+        <div style="max-width: 560px; margin: 0 auto">
+          <div style="font-size: 2.5rem; margin-bottom: 14px">🏡</div>
+          <h2
+            style="
+              font-family: &quot;Fraunces&quot;, serif;
+              font-size: 1.7rem;
+              color: white;
+              margin-bottom: 10px;
+            "
+          >
+            Earn from your property
+          </h2>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.6);
+              line-height: 1.7;
+              margin-bottom: 22px;
+              font-size: 0.9rem;
+            "
+          >
+            Join 50,000+ hosts earning an average ₹45,000/month
+          </p>
+          <button
+            onclick="openHostModal()"
+            style="
+              background: var(--coral);
+              color: white;
+              border: none;
+              border-radius: 50px;
+              padding: 13px 32px;
+              font-size: 0.9rem;
+              font-weight: 700;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+            onmouseover="this.style.transform = 'translateY(-2px)'"
+            onmouseout="this.style.transform = ''"
+          >
+            Start Hosting →
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- ═══ LISTING DETAIL PAGE ═══ -->
+    <div class="pg" id="pg-listing-detail">
+      <div id="listing-detail-content" style="max-width:1100px;margin:0 auto;padding:24px 5% 60px"></div>
+    </div>
+
+    <!-- ═══ ALL STAYS ═══ -->
+    <div class="pg" id="pg-stays">
+      <div class="cats" style="top: var(--nav)">
+        <div class="cats-scroll" id="stays-cats"></div>
+      </div>
+      <section class="section">
+        <div class="sec-head">
+          <h2 id="stays-heading">All Stays</h2>
+          <div
+            style="
+              display: flex;
+              gap: 8px;
+              align-items: center;
+              flex-wrap: wrap;
+            "
+          >
+            <input
+              class="f-inp"
+              id="stays-q"
+              placeholder="Search…"
+              oninput="filterStays()"
+              style="width: 200px; padding: 8px 12px; font-size: 0.82rem"
+            />
+            <button
+              onclick="openFilterModal()"
+              class="btn-s"
+              style="padding: 8px 14px; font-size: 0.8rem"
+            >
+              <i class="fas fa-sliders-h"></i> Filters
+            </button>
+            <select
+              class="f-inp"
+              id="stays-sort"
+              onchange="filterStays()"
+              style="width: 140px; padding: 8px 12px; font-size: 0.82rem"
+            >
+              <option value="">Popular</option>
+              <option value="price-asc">Price ↑</option>
+              <option value="price-desc">Price ↓</option>
+              <option value="rating">Top Rated</option>
+            </select>
+          </div>
+        </div>
+        <div class="stays-grid" id="all-stays-grid"></div>
+        <div id="all-stays-empty" class="empty" style="display: none">
+          <div class="empty-ico">🔍</div>
+          <h3>No stays found</h3>
+          <p>Try adjusting your filters</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ═══ EXPERIENCES ═══ -->
+    <div class="pg" id="pg-experiences">
+      <section class="section">
+        <div class="sec-head"><h2>All Experiences</h2></div>
+        <div class="exp-grid" id="all-exp-grid"></div>
+      </section>
+    </div>
+
+    <!-- ═══ PROFILE ═══ -->
+    <div class="pg" id="pg-profile">
+      <div class="pf-layout">
+        <div class="pf-sidebar">
+          <div class="pf-av" id="pf-av">G</div>
+          <div class="pf-name" id="pf-name">Guest</div>
+          <div class="pf-email" id="pf-email">Not signed in</div>
+          <div
+            class="pnav-item on"
+            id="pn-bookings"
+            onclick="showPTab('bookings')"
+          >
+            <i class="fas fa-calendar-check"></i> My Bookings
+          </div>
+          <div
+            class="pnav-item"
+            id="pn-wishlist"
+            onclick="showPTab('wishlist')"
+          >
+            <i class="fas fa-heart"></i> Wishlist
+          </div>
+          <div
+            class="pnav-item"
+            id="pn-settings"
+            onclick="showPTab('settings')"
+          >
+            <i class="fas fa-cog"></i> Settings
+          </div>
+          <div class="pnav-item" id="pn-mytrips" onclick="showPTab('mytrips')">
+            <i class="fas fa-route" style="color: #7c3aed"></i> My Trips
+          </div>
+        </div>
+        <div>
+          <div class="ptab on" id="ptab-bookings">
+            <h2
+              style="
+                font-family: &quot;Fraunces&quot;, serif;
+                margin-bottom: 20px;
+              "
+            >
+              My Bookings
+            </h2>
+            <div id="bookings-list"></div>
+          </div>
+          <div class="ptab" id="ptab-wishlist">
+            <h2
+              style="
+                font-family: &quot;Fraunces&quot;, serif;
+                margin-bottom: 20px;
+              "
+            >
+              Wishlist
+            </h2>
+            <div class="stays-grid" id="wishlist-grid"></div>
+            <div id="wishlist-empty" class="empty" style="display: none">
+              <div class="empty-ico">💝</div>
+              <h3>No saved stays yet</h3>
+              <p>Heart any stay to save it here</p>
+            </div>
+          </div>
+          <div class="ptab" id="ptab-settings">
+            <h2
+              style="
+                font-family: &quot;Fraunces&quot;, serif;
+                margin-bottom: 20px;
+              "
+            >
+              Account Settings
+            </h2>
+            <div
+              style="
+                background: white;
+                border: 1px solid var(--border);
+                border-radius: var(--r-xl);
+                padding: 24px;
+              "
+            >
+              <div class="f-row">
+                <div class="f-group">
+                  <label class="f-lbl">Full Name</label
+                  ><input class="f-inp" id="set-name" />
+                </div>
+                <div class="f-group">
+                  <label class="f-lbl">Email</label
+                  ><input class="f-inp" id="set-email" type="email" />
+                </div>
+              </div>
+              <div class="f-row">
+                <div class="f-group">
+                  <label class="f-lbl">Phone</label
+                  ><input class="f-inp" id="set-phone" type="tel" />
+                </div>
+                <div class="f-group">
+                  <label class="f-lbl">City</label
+                  ><input class="f-inp" id="set-city" />
+                </div>
+              </div>
+              <button
+                class="btn-p"
+                style="width: auto; padding: 11px 28px"
+                onclick="saveSettings()"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+          <div class="ptab" id="ptab-mytrips">
+            <h2
+              style="
+                font-family: &quot;Fraunces&quot;, serif;
+                margin-bottom: 20px;
+              "
+            >
+              My Creator Trip Bookings
+            </h2>
+            <div id="mytrips-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ HOST ═══ -->
+    <div class="pg" id="pg-host">
+      <section class="section">
+        <div class="sec-head">
+          <h2>Host Dashboard</h2>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <button
+              onclick="openPlanModal()"
+              class="btn-s"
+              style="
+                padding: 10px 18px;
+                font-size: 0.82rem;
+                border-color: var(--gold);
+                color: #b45309;
+              "
+            >
+              👑 Upgrade Plan
+            </button>
+            <button
+              onclick="openAddListingModal()"
+              class="btn-p"
+              style="width: auto; padding: 10px 22px"
+            >
+              + Add Listing
+            </button>
+          </div>
+        </div>
+        <div id="host-plan-banner" style="margin-bottom: 20px"></div>
+        <div id="host-listings"></div>
+      </section>
+    </div>
+
+    <!-- ═══ ADMIN ═══ -->
+    <div class="pg" id="pg-admin">
+      <div class="adm-layout">
+        <div id="adm-login">
+          <div style="max-width: 400px; margin: 0 auto">
+            <div
+              style="
+                background: white;
+                border: 1px solid var(--border);
+                border-radius: var(--r-xl);
+                padding: 32px;
+              "
+            >
+              <div
+                style="font-size: 2rem; text-align: center; margin-bottom: 8px"
+              >
+                🛡️
+              </div>
+              <h2
+                style="
+                  font-family: &quot;Fraunces&quot;, serif;
+                  font-size: 1.4rem;
+                  text-align: center;
+                  margin-bottom: 20px;
+                "
+              >
+                Admin Login
+              </h2>
+              <div class="f-group">
+                <label class="f-lbl">Email</label
+                ><input
+                  class="f-inp"
+                  id="adm-email"
+                  type="email"
+                  placeholder="admin@homesstays.com"
+                />
+              </div>
+              <div class="f-group">
+                <label class="f-lbl">Password</label
+                ><input
+                  class="f-inp"
+                  id="adm-pass"
+                  type="password"
+                  placeholder="••••••••"
+                />
+              </div>
+              <button class="btn-p" onclick="adminLogin()">
+                Login to Admin
+              </button>
+              <p
+                style="
+                  text-align: center;
+                  font-size: 0.74rem;
+                  color: var(--ink3);
+                  margin-top: 12px;
+                "
+              >
+                Demo:
+                <a
+                  href="/cdn-cgi/l/email-protection"
+                  class="__cf_email__"
+                  data-cfemail="95f4f1f8fcfbd5f3f9f0edfce6e1f4ecbbf6faf8"
+                  >[email&#160;protected]</a
+                >
+                / admin123
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="adm-dashboard" style="display: none">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 24px;
+              flex-wrap: wrap;
+              gap: 12px;
+            "
+          >
+            <h2
+              style="
+                font-family: &quot;Fraunces&quot;, serif;
+                font-size: 1.5rem;
+              "
+            >
+              Admin Panel
+            </h2>
+            <button
+              onclick="adminLogout()"
+              class="btn-s"
+              style="padding: 8px 14px; font-size: 0.8rem"
+            >
+              Logout
+            </button>
+          </div>
+          <div class="adm-stats">
+            <div class="adm-stat">
+              <div class="adm-stat-n" id="adm-n0" style="color: var(--gold)">
+                0
+              </div>
+              <div class="adm-stat-l">Pending</div>
+            </div>
+            <div class="adm-stat">
+              <div class="adm-stat-n" id="adm-n1" style="color: var(--teal)">
+                0
+              </div>
+              <div class="adm-stat-l">Approved</div>
+            </div>
+            <div class="adm-stat">
+              <div class="adm-stat-n" id="adm-n2" style="color: var(--coral)">
+                0
+              </div>
+              <div class="adm-stat-l">Rejected</div>
+            </div>
+            <div class="adm-stat">
+              <div class="adm-stat-n" id="adm-n3" style="color: var(--ink)">
+                0
+              </div>
+              <div class="adm-stat-l">Users</div>
+            </div>
+          </div>
+          <div class="adm-tabs">
+            <div
+              class="adm-tab on"
+              id="at-pending"
+              onclick="adminTab('pending')"
+            >
+              ⏳ Pending
+            </div>
+            <div
+              class="adm-tab"
+              id="at-approved"
+              onclick="adminTab('approved')"
+            >
+              ✅ Approved
+            </div>
+            <div
+              class="adm-tab"
+              id="at-rejected"
+              onclick="adminTab('rejected')"
+            >
+              ❌ Rejected
+            </div>
+            <div class="adm-tab" id="at-users" onclick="adminTab('users')">
+              👥 Users
+            </div>
+            <div
+              class="adm-tab"
+              id="at-creator-trips"
+              onclick="adminTab('creator-trips')"
+            >
+              🗺️ Creator Trips
+            </div>
+          </div>
+          <div id="adm-listings-panel"></div>
+          <div id="adm-users-panel" style="display: none"></div>
+          <div id="adm-trips-panel" style="display: none"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer id="footer" style="display: none">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">homesstays</div>
+          <p class="footer-about">
+            India's most-loved platform for authentic homesstays, heritage
+            properties, and cultural experiences from Himalayas to Kerala.
+          </p>
+          <div class="footer-social">
+            <div class="f-soc"><i class="fab fa-instagram"></i></div>
+            <div class="f-soc"><i class="fab fa-facebook"></i></div>
+            <div class="f-soc"><i class="fab fa-whatsapp"></i></div>
+            <div class="f-soc"><i class="fab fa-youtube"></i></div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li onclick="goto('stays')">All Stays</li>
+            <li onclick="goto('experiences')">Experiences</li>
+            <li>Festival Stays</li>
+            <li>Monthly Stays</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Hosting</h4>
+          <ul>
+            <li onclick="openHostModal()">Become a Host</li>
+            <li onclick="goto('host')">Host Dashboard</li>
+            <li>Host Resources</li>
+            <li>Host Guarantee</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li>Help Centre</li>
+            <li>Cancellation Policy</li>
+            <li>Safety Info</li>
+            <li>Careers</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-btm">
+        <span
+          >© 2026 homesstays Technologies Pvt. Ltd. · Made with ❤️ in India
+          🇮🇳</span
+        >
+        <div style="display: flex; gap: 16px">
+          <span>Privacy</span><span>Terms</span><span>Sitemap</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ═══════════ MODALS ═══════════ -->
+
+    <!-- LOGIN -->
+    <div class="modal-bg" id="modal-login">
+      <div class="modal" style="max-width: 420px">
+        <button class="modal-close" onclick="closeModal('modal-login')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <h2>Welcome back 👋</h2>
+          <p>Sign in to your homesstays account</p>
+          <button
+            class="soc-btn"
+            onclick="
+              closeModal('modal-login');
+              openPhoneModal();
+            "
+          >
+            <i class="fas fa-mobile-alt" style="color: var(--teal)"></i>
+            Continue with Phone
+          </button>
+          <div class="divider">or email</div>
+          <div class="f-group">
+            <label class="f-lbl">Email</label
+            ><input
+              class="f-inp"
+              id="li-email"
+              type="email"
+              placeholder="you@example.com"
+            />
+          </div>
+          <div class="f-group">
+            <label class="f-lbl">Password</label
+            ><input
+              class="f-inp"
+              id="li-pass"
+              type="password"
+              placeholder="••••••••"
+            />
+          </div>
+          <button class="btn-p" id="li-btn" onclick="doLogin()">
+            Sign In →
+          </button>
+          <div class="modal-link">
+            New here?
+            <a
+              onclick="
+                closeModal('modal-login');
+                openRegModal();
+              "
+              >Create account</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="modal-bg" id="modal-register">
+      <div class="modal" style="max-width: 420px">
+        <button class="modal-close" onclick="closeModal('modal-register')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <h2>Create account 🎉</h2>
+          <p>Join 2 million travellers on homesstays</p>
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-lbl">First Name</label
+              ><input class="f-inp" id="reg-fn" placeholder="Rahul" />
+            </div>
+            <div class="f-group">
+              <label class="f-lbl">Last Name</label
+              ><input class="f-inp" id="reg-ln" placeholder="Sharma" />
+            </div>
+          </div>
+          <div class="f-group">
+            <label class="f-lbl">Email</label
+            ><input
+              class="f-inp"
+              id="reg-email"
+              type="email"
+              placeholder="you@example.com"
+            />
+          </div>
+          <div class="f-group">
+            <label class="f-lbl">Phone</label
+            ><input
+              class="f-inp"
+              id="reg-phone"
+              type="tel"
+              placeholder="+91 98765 43210"
+            />
+          </div>
+          <div class="f-group">
+            <label class="f-lbl">Password</label
+            ><input
+              class="f-inp"
+              id="reg-pass"
+              type="password"
+              placeholder="Min 6 characters"
+            />
+          </div>
+          <button class="btn-p" id="reg-btn" onclick="doRegister()">
+            Create Account →
+          </button>
+          <div class="modal-link">
+            Have an account?
+            <a
+              onclick="
+                closeModal('modal-register');
+                openLoginModal();
+              "
+              >Sign in</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHONE OTP -->
+    <div class="modal-bg" id="modal-phone">
+      <div class="modal" style="max-width: 360px">
+        <button class="modal-close" onclick="closeModal('modal-phone')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div id="otp-s1" class="modal-body">
+          <div style="font-size: 2rem; text-align: center; margin-bottom: 10px">
+            📱
+          </div>
+          <h2>Phone Login</h2>
+          <p>We'll send a 4-digit OTP</p>
+          <div style="display: flex; gap: 8px; margin-bottom: 14px">
+            <input
+              class="f-inp"
+              style="width: 80px; text-align: center; flex-shrink: 0"
+              value="🇮🇳 +91"
+              readonly
+            />
+            <input
+              class="f-inp"
+              id="otp-phone"
+              type="tel"
+              placeholder="98765 43210"
+            />
+          </div>
+          <button class="btn-p" onclick="sendOTP()">Send OTP →</button>
+        </div>
+        <div id="otp-s2" class="modal-body" style="display: none">
+          <div style="font-size: 2rem; text-align: center; margin-bottom: 10px">
+            🔐
+          </div>
+          <h2>Enter OTP</h2>
+          <p id="otp-msg">OTP sent</p>
+          <div class="otp-row">
+            <input
+              class="otp-inp"
+              maxlength="1"
+              id="o1"
+              oninput="mvOtp(this, 'o2')"
+            />
+            <input
+              class="otp-inp"
+              maxlength="1"
+              id="o2"
+              oninput="mvOtp(this, 'o3')"
+            />
+            <input
+              class="otp-inp"
+              maxlength="1"
+              id="o3"
+              oninput="mvOtp(this, 'o4')"
+            />
+            <input
+              class="otp-inp"
+              maxlength="1"
+              id="o4"
+              oninput="mvOtp(this, null)"
+            />
+          </div>
+          <button class="btn-p" onclick="verifyOTP()">Verify →</button>
+          <div class="modal-link">
+            <a onclick="sendOTP()">Resend</a> ·
+            <a onclick="showOTPStep(1)">Change number</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH MODAL -->
+    <div class="modal-bg" id="modal-search">
+      <div class="modal" style="max-width: 540px">
+        <button class="modal-close" onclick="closeModal('modal-search')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <h2 style="margin-bottom: 14px">Where to?</h2>
+          <input
+            class="f-inp"
+            id="search-q"
+            placeholder="Search destinations, properties…"
+            oninput="liveSearch(this.value)"
+            style="font-size: 0.92rem; margin-bottom: 16px"
+            autofocus
+          />
+          <div id="search-popular">
+            <div
+              style="
+                font-size: 0.7rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: var(--ink3);
+                margin-bottom: 10px;
+              "
+            >
+              Popular Destinations
+            </div>
+            <div id="pop-list"></div>
+          </div>
+          <div id="search-results" style="display: none"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATES MODAL -->
+    <div class="modal-bg" id="modal-dates">
+      <div class="modal" style="max-width: 420px">
+        <button class="modal-close" onclick="closeModal('modal-dates')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <h2>Select Dates</h2>
+          <p>Choose check-in and check-out</p>
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-lbl">Check In</label
+              ><input class="f-inp" type="date" id="dt-in" />
+            </div>
+            <div class="f-group">
+              <label class="f-lbl">Check Out</label
+              ><input class="f-inp" type="date" id="dt-out" />
+            </div>
+          </div>
+          <div class="chips-row">
+            <div class="chip" onclick="qDate('weekend', this)">
+              This weekend
+            </div>
+            <div class="chip" onclick="qDate('week', this)">Next week</div>
+            <div class="chip" onclick="qDate('month', this)">Next month</div>
+          </div>
+          <button class="btn-p" onclick="saveDates()">Save Dates →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GUESTS MODAL -->
+    <div class="modal-bg" id="modal-guests">
+      <div class="modal" style="max-width: 360px">
+        <button class="modal-close" onclick="closeModal('modal-guests')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <h2>Who's coming?</h2>
+          <p>Select number of guests</p>
+          <div class="g-row">
+            <div>
+              <div class="g-info-t">Adults</div>
+              <div class="g-info-s">Age 13+</div>
+            </div>
+            <div class="g-ctrl">
+              <button class="g-btn" onclick="adj('adults', -1)">−</button
+              ><span class="g-count" id="g-adults">2</span
+              ><button class="g-btn" onclick="adj('adults', 1)">+</button>
+            </div>
+          </div>
+          <div class="g-row">
+            <div>
+              <div class="g-info-t">Children</div>
+              <div class="g-info-s">Age 2–12</div>
+            </div>
+            <div class="g-ctrl">
+              <button class="g-btn" onclick="adj('children', -1)">−</button
+              ><span class="g-count" id="g-children">0</span
+              ><button class="g-btn" onclick="adj('children', 1)">+</button>
+            </div>
+          </div>
+          <div class="g-row">
+            <div>
+              <div class="g-info-t">Infants</div>
+              <div class="g-info-s">Under 2</div>
+            </div>
+            <div class="g-ctrl">
+              <button class="g-btn" onclick="adj('infants', -1)">−</button
+              ><span class="g-count" id="g-infants">0</span
+              ><button class="g-btn" onclick="adj('infants', 1)">+</button>
+            </div>
+          </div>
+          <button class="btn-p" style="margin-top: 16px" onclick="saveGuests()">
+            Done →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILTER MODAL -->
+    <div class="modal-bg" id="modal-filter">
+      <div class="modal" style="max-width: 480px">
+        <button class="modal-close" onclick="closeModal('modal-filter')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <h2>Filters</h2>
+          <p>Narrow your search</p>
+          <div style="margin-bottom: 18px">
+            <label class="f-lbl" style="margin-bottom: 10px"
+              >Max price per night</label
+            >
+            <input
+              type="range"
+              class="price-slider"
+              id="f-price"
+              min="500"
+              max="30000"
+              value="15000"
+              oninput="
+                document.getElementById('f-price-v').textContent =
+                  '₹' + parseInt(this.value).toLocaleString()
+              "
+            />
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.78rem;
+                color: var(--ink3);
+              "
+            >
+              <span>₹500</span><span id="f-price-v">₹15,000</span>
+            </div>
+          </div>
+          <label class="f-lbl" style="margin-bottom: 10px">Stay Type</label>
+          <div class="chips-row" id="f-type-chips">
+            <div
+              class="chip"
+              onclick="toggleChip(this)"
+              data-v="Heritage Haveli"
+            >
+              🏰 Haveli
+            </div>
+            <div class="chip" onclick="toggleChip(this)" data-v="Beach Cottage">
+              🏖️ Beach
+            </div>
+            <div
+              class="chip"
+              onclick="toggleChip(this)"
+              data-v="Mountain Retreat"
+            >
+              🏔️ Mountain
+            </div>
+            <div class="chip" onclick="toggleChip(this)" data-v="Eco Stay">
+              🌿 Eco
+            </div>
+            <div class="chip" onclick="toggleChip(this)" data-v="Houseboat">
+              ⛵ Houseboat
+            </div>
+            <div class="chip" onclick="toggleChip(this)" data-v="Jungle Lodge">
+              🌿 Jungle
+            </div>
+            <div class="chip" onclick="toggleChip(this)" data-v="Tree House">
+              🌳 Treehouse
+            </div>
+            <div class="chip" onclick="toggleChip(this)" data-v="Village Home">
+              🏡 Village
+            </div>
+          </div>
+          <label class="f-lbl" style="margin-bottom: 10px; margin-top: 4px"
+            >Amenities</label
+          >
+          <div class="chips-row" id="f-am-chips">
+            <div class="chip" onclick="toggleChip(this)" data-v="WiFi">
+              📶 WiFi
+            </div>
+            <div class="chip" onclick="toggleChip(this)" data-v="Pool">
+              🏊 Pool
+            </div>
+            <div class="chip" onclick="toggleChip(this)" data-v="AC">❄️ AC</div>
+            <div class="chip" onclick="toggleChip(this)" data-v="Parking">
+              🅿️ Parking
+            </div>
+            <div class="chip" onclick="toggleChip(this)" data-v="Breakfast">
+              🍳 Breakfast
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: 16px">
+            <button class="btn-s" onclick="clearFilters()" style="flex: 1">
+              Clear All
+            </button>
+            <button class="btn-p" onclick="applyFilters()" style="flex: 2">
+              Apply Filters
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISTING DETAIL MODAL -->
+    <div class="modal-bg" id="modal-listing">
+      <div class="modal" style="max-width: 880px; padding: 0">
+        <div id="listing-inner"></div>
+      </div>
+    </div>
+
+    <!-- BOOKING MODAL -->
+    <div class="modal-bg" id="modal-booking">
+      <div class="modal" style="max-width: 460px">
+        <div id="booking-inner"></div>
+      </div>
+    </div>
+
+    <!-- UPI PAYMENT MODAL — Secure 2-Step UTR Verification -->
+    <div class="modal-bg" id="modal-upi">
+      <div class="modal" style="max-width: 460px">
+        <button
+          class="modal-close"
+          onclick="
+            closeModal('modal-upi');
+            clearInterval(_upiT);
+          "
+        >
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body" style="padding: 22px">
+          <div id="upi-step-1">
+            <div style="text-align: center; margin-bottom: 14px">
+              <div
+                style="
+                  font-family: &quot;Fraunces&quot;, serif;
+                  font-size: 1.25rem;
+                  font-weight: 700;
+                "
+              >
+                Pay via UPI
+              </div>
+              <div
+                style="font-size: 0.76rem; color: var(--ink3); margin-top: 3px"
+              >
+                Scan QR or tap your UPI app below
+              </div>
+            </div>
+            <div
+              style="
+                background: linear-gradient(135deg, var(--teal), #0d8a7d);
+                border-radius: var(--r-lg);
+                padding: 14px;
+                text-align: center;
+                margin-bottom: 14px;
+                color: white;
+              "
+            >
+              <div
+                style="
+                  font-size: 0.68rem;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  letter-spacing: 0.8px;
+                  opacity: 0.8;
+                "
+              >
+                Amount to Pay
+              </div>
+              <div
+                style="
+                  font-family: &quot;Fraunces&quot;, serif;
+                  font-size: 2rem;
+                  font-weight: 700;
+                "
+                id="upi-amt"
+              >
+                Rs.0
+              </div>
+              <div
+                style="font-size: 0.68rem; opacity: 0.7; margin-top: 2px"
+                id="upi-bk-ref"
+              >
+                Booking Ref: ---
+              </div>
+            </div>
+            <div style="text-align: center; margin-bottom: 12px">
+              <div class="upi-qr-wrap" style="display: inline-block">
+                <div id="upi-qr" style="width: 190px; height: 190px"></div>
+              </div>
+            </div>
+            <div class="upi-apps" style="margin-bottom:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+              <div onclick="launchUPI('gpay')" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:2px solid #4caf50;border-radius:var(--r);cursor:pointer;transition:transform .15s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
+                <div style="width:38px;height:38px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.1rem;color:#1a73e8;box-shadow:0 2px 8px rgba(0,0,0,.12)">G</div>
+                <div class="upi-app-name" style="color:#1b5e20;font-weight:700">GPay</div>
+              </div>
+              <div onclick="launchUPI('phonepe')" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;background:linear-gradient(135deg,#ede9fe,#ddd6fe);border:2px solid #7c3aed;border-radius:var(--r);cursor:pointer;transition:transform .15s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
+                <div style="width:38px;height:38px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;color:#5f259f;box-shadow:0 2px 8px rgba(0,0,0,.12)">Pe</div>
+                <div class="upi-app-name" style="color:#4c1d95;font-weight:700">PhonePe</div>
+              </div>
+              <div onclick="launchUPI('paytm')" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;background:linear-gradient(135deg,#dbeafe,#bfdbfe);border:2px solid #2563eb;border-radius:var(--r);cursor:pointer;transition:transform .15s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
+                <div style="width:38px;height:38px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.7rem;color:#1d4ed8;box-shadow:0 2px 8px rgba(0,0,0,.12)">Pay</div>
+                <div class="upi-app-name" style="color:#1e3a8a;font-weight:700">Paytm</div>
+              </div>
+              <div onclick="launchUPI('bhim')" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;background:linear-gradient(135deg,#fef9c3,#fef08a);border:2px solid #ca8a04;border-radius:var(--r);cursor:pointer;transition:transform .15s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
+                <div style="width:38px;height:38px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.7rem;color:#854d0e;box-shadow:0 2px 8px rgba(0,0,0,.12)">BHIM</div>
+                <div class="upi-app-name" style="color:#713f12;font-weight:700">BHIM</div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:.7rem;color:var(--ink3);margin-bottom:10px">📱 Tap an app to pay directly · Scan QR if app doesn't open</div>
+            <div class="upi-id-row" style="margin-bottom: 10px">
+              <div>
+                <div
+                  style="
+                    font-size: 0.62rem;
+                    color: var(--ink3);
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                  "
+                >
+                  UPI ID
+                </div>
+                <div
+                  style="font-size: 0.9rem; font-weight: 700"
+                  id="upi-id-txt"
+                >
+                  homesstays@upi
+                </div>
+              </div>
+              <button
+                onclick="cpyUPI()"
+                class="btn-s"
+                style="padding: 5px 12px; font-size: 0.76rem"
+              >
+                Copy
+              </button>
+            </div>
+            <div
+              style="
+                font-size: 0.74rem;
+                color: var(--ink3);
+                margin-bottom: 4px;
+                text-align: center;
+              "
+            >
+              Expires in <strong id="upi-cd">10:00</strong>
+            </div>
+            <div class="upi-bar-wrap">
+              <div class="upi-bar" id="upi-bar" style="width: 100%"></div>
+            </div>
+            <button
+              class="btn-p"
+              onclick="upiShowStep2()"
+              style="margin-top: 12px; width: 100%"
+            >
+              I have paid - Enter UTR Number
+            </button>
+            <div
+              style="
+                font-size: 0.66rem;
+                color: var(--ink3);
+                text-align: center;
+                margin-top: 8px;
+              "
+            >
+              256-bit SSL - Powered by Firebase
+            </div>
+          </div>
+          <div id="upi-step-2" style="display: none">
+            <div style="text-align: center; margin-bottom: 16px">
+              <div style="font-size: 2rem; margin-bottom: 8px">&#128272;</div>
+              <div
+                style="
+                  font-family: &quot;Fraunces&quot;, serif;
+                  font-size: 1.15rem;
+                  font-weight: 700;
+                "
+              >
+                Enter UTR Number
+              </div>
+              <div
+                style="
+                  font-size: 0.76rem;
+                  color: var(--ink3);
+                  margin-top: 6px;
+                  line-height: 1.6;
+                "
+              >
+                Open your UPI app, go to Transaction History and copy the UTR or
+                Reference Number
+              </div>
+            </div>
+            <div
+              style="
+                background: #fff7ed;
+                border: 1px solid #fed7aa;
+                border-radius: var(--r);
+                padding: 11px 13px;
+                margin-bottom: 14px;
+                font-size: 0.74rem;
+                color: #9a3412;
+                line-height: 1.7;
+              "
+            >
+              <div style="font-weight: 700; margin-bottom: 4px">
+                Where to find UTR?
+              </div>
+              <div>GPay: Tap transaction - 3 dots - Transaction ID</div>
+              <div>PhonePe: History - UPI Ref No</div>
+              <div>Paytm: Passbook - Transaction details</div>
+              <div>BHIM: Txn History - Ref No</div>
+            </div>
+            <div class="f-group">
+              <label class="f-lbl">UTR / Transaction Reference Number *</label>
+              <input
+                class="f-inp"
+                id="upi-utr-inp"
+                placeholder="e.g. 501234567890"
+                style="
+                  letter-spacing: 0.6px;
+                  font-weight: 700;
+                  font-size: 0.9rem;
+                  text-transform: uppercase;
+                "
+                maxlength="22"
+              />
+              <div
+                style="font-size: 0.67rem; color: var(--ink3); margin-top: 3px"
+              >
+                12 to 22 alphanumeric characters from your UPI app
+              </div>
+            </div>
+            <div
+              id="upi-utr-error"
+              style="
+                display: none;
+                background: #fef2f2;
+                border: 1px solid #fecaca;
+                border-radius: var(--r);
+                padding: 8px 12px;
+                font-size: 0.76rem;
+                color: #dc2626;
+                margin-bottom: 10px;
+              "
+            ></div>
+            <div style="display: flex; gap: 10px; margin-top: 6px">
+              <button
+                class="btn-s"
+                onclick="upiBackToStep1()"
+                style="padding: 11px 14px; flex-shrink: 0"
+              >
+                Back
+              </button>
+              <button
+                class="btn-p"
+                id="upi-verify-btn"
+                onclick="verifyAndConfirmUTR()"
+                style="flex: 1"
+              >
+                Verify and Confirm Booking
+              </button>
+            </div>
+            <div
+              style="
+                font-size: 0.66rem;
+                color: var(--ink3);
+                text-align: center;
+                margin-top: 10px;
+              "
+            >
+              False UTR submissions are logged. Booking confirmed after admin
+              verification.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD LISTING MODAL -->
+    <div class="modal-bg" id="modal-add-listing">
+      <div class="modal" style="max-width: 580px">
+        <button class="modal-close" onclick="closeModal('modal-add-listing')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <h2>List your property 🏡</h2>
+          <p>Submit for review — goes live after admin approval</p>
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-lbl">Property Name</label
+              ><input
+                class="f-inp"
+                id="al-name"
+                placeholder="e.g. Himalayan Cottage"
+              />
+            </div>
+            <div class="f-group">
+              <label class="f-lbl">Type</label
+              ><select class="f-inp" id="al-type">
+                <option>Heritage Haveli</option>
+                <option>Beach Cottage</option>
+                <option>Mountain Retreat</option>
+                <option>Eco Stay</option>
+                <option>Houseboat</option>
+                <option>Jungle Lodge</option>
+                <option>Tree House</option>
+                <option>Village Home</option>
+                <option>Royal Palace</option>
+              </select>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-lbl">City</label
+              ><input class="f-inp" id="al-city" placeholder="e.g. Manali" />
+            </div>
+            <div class="f-group">
+              <label class="f-lbl">State</label
+              ><select class="f-inp" id="al-state">
+                <option>Rajasthan</option>
+                <option>Kerala</option>
+                <option>Goa</option>
+                <option>Himachal Pradesh</option>
+                <option>Uttarakhand</option>
+                <option>Karnataka</option>
+                <option>Tamil Nadu</option>
+                <option>Maharashtra</option>
+                <option>Gujarat</option>
+                <option>Andaman</option>
+                <option>West Bengal</option>
+                <option>Uttar Pradesh</option>
+              </select>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-lbl">Price / Night (₹)</label
+              ><input
+                class="f-inp"
+                id="al-price"
+                type="number"
+                placeholder="3500"
+              />
+            </div>
+            <div class="f-group">
+              <label class="f-lbl">Max Guests</label
+              ><input
+                class="f-inp"
+                id="al-guests"
+                type="number"
+                placeholder="4"
+                min="1"
+              />
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-lbl">Bedrooms</label
+              ><input
+                class="f-inp"
+                id="al-rooms"
+                type="number"
+                placeholder="2"
+                min="1"
+              />
+            </div>
+            <div class="f-group">
+              <label class="f-lbl">Amenities</label
+              ><input class="f-inp" id="al-ams" placeholder="WiFi, AC, Pool" />
+            </div>
+          </div>
+          <div class="f-group">
+            <label class="f-lbl">Description</label
+            ><textarea
+              class="f-inp"
+              id="al-desc"
+              placeholder="What makes your property special…"
+            ></textarea>
+          </div>
+          <label class="f-lbl" style="margin-bottom: 8px"
+            >Photos (paste image URLs)</label
+          >
+          <div class="photo-grid" id="al-photo-grid">
+            <div class="photo-slot" id="ps-0" onclick="addPhoto(0)">
+              <i
+                class="fas fa-camera"
+                style="font-size: 1.4rem; color: var(--ink4)"
+              ></i>
+              <div class="photo-slot-lbl">Main Photo</div>
+            </div>
+            <div class="photo-slot" id="ps-1" onclick="addPhoto(1)">
+              <i
+                class="fas fa-plus"
+                style="font-size: 1.2rem; color: var(--ink4)"
+              ></i>
+              <div class="photo-slot-lbl">Photo 2</div>
+            </div>
+            <div class="photo-slot" id="ps-2" onclick="addPhoto(2)">
+              <i
+                class="fas fa-plus"
+                style="font-size: 1.2rem; color: var(--ink4)"
+              ></i>
+              <div class="photo-slot-lbl">Photo 3</div>
+            </div>
+          </div>
+          <p
+            style="font-size: 0.72rem; color: var(--ink3); margin-bottom: 16px"
+          >
+            💡 Paste any image URL or Unsplash link
+          </p>
+          <button class="btn-p" onclick="submitListing()">
+            Submit for Review →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOST PITCH MODAL -->
+    <div class="modal-bg" id="modal-host">
+      <div class="modal" style="max-width: 460px">
+        <button class="modal-close" onclick="closeModal('modal-host')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <div
+            style="font-size: 2.5rem; text-align: center; margin-bottom: 12px"
+          >
+            🏡
+          </div>
+          <h2 style="text-align: center">Become a homesstays Host</h2>
+          <p style="text-align: center">
+            Join 50,000+ hosts earning from their spaces
+          </p>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 12px;
+              margin-bottom: 24px;
+            "
+          >
+            <div
+              style="
+                text-align: center;
+                padding: 14px;
+                background: var(--bg);
+                border-radius: var(--r);
+              "
+            >
+              <div style="font-size: 1.5rem">💰</div>
+              <div
+                style="font-size: 0.78rem; font-weight: 700; margin-top: 6px"
+              >
+                ₹45K/mo
+              </div>
+              <div style="font-size: 0.66rem; color: var(--ink3)">
+                Avg earnings
+              </div>
+            </div>
+            <div
+              style="
+                text-align: center;
+                padding: 14px;
+                background: var(--bg);
+                border-radius: var(--r);
+              "
+            >
+              <div style="font-size: 1.5rem">🛡️</div>
+              <div
+                style="font-size: 0.78rem; font-weight: 700; margin-top: 6px"
+              >
+                ₹1Cr Cover
+              </div>
+              <div style="font-size: 0.66rem; color: var(--ink3)">
+                Host guarantee
+              </div>
+            </div>
+            <div
+              style="
+                text-align: center;
+                padding: 14px;
+                background: var(--bg);
+                border-radius: var(--r);
+              "
+            >
+              <div style="font-size: 1.5rem">📞</div>
+              <div
+                style="font-size: 0.78rem; font-weight: 700; margin-top: 6px"
+              >
+                24/7
+              </div>
+              <div style="font-size: 0.66rem; color: var(--ink3)">Support</div>
+            </div>
+          </div>
+          <button
+            class="btn-p"
+            onclick="
+              closeModal('modal-host');
+              openAddListingModal();
+            "
+          >
+            List My Property →
+          </button>
+          <div class="modal-link">
+            <a
+              onclick="
+                goto('host');
+                closeModal('modal-host');
+              "
+              >Go to Host Dashboard</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREMIUM PLANS MODAL -->
+    <div class="modal-bg" id="modal-plans">
+      <div class="modal" style="max-width: 720px">
+        <button class="modal-close" onclick="closeModal('modal-plans')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <div style="text-align: center; margin-bottom: 6px">
+            <div style="font-size: 2rem; margin-bottom: 6px">👑</div>
+            <h2 style="margin-bottom: 4px">Choose Your Hosting Plan</h2>
+            <p>One-time setup + monthly fee · Commission on each booking</p>
+          </div>
+
+          <!-- Commission Table -->
+          <div class="comm-box">
+            <div class="comm-box-title">📊 homesstays Commission Structure</div>
+            <div class="comm-row">
+              <span>Free Plan</span><span>18% per booking + ₹0/month</span>
+            </div>
+            <div class="comm-row">
+              <span>Basic Plan</span><span>12% per booking + ₹499/month</span>
+            </div>
+            <div class="comm-row">
+              <span>Pro Plan ⭐</span><span>8% per booking + ₹999/month</span>
+            </div>
+            <div class="comm-row">
+              <span>Gold Plan 👑</span
+              ><span>4% per booking + ₹1,999/month</span>
+            </div>
+          </div>
+
+          <div class="plan-grid" id="plan-cards-grid"></div>
+
+          <div
+            style="
+              background: var(--bg);
+              border-radius: var(--r);
+              padding: 14px 16px;
+              font-size: 0.78rem;
+              color: var(--ink3);
+              margin-bottom: 16px;
+              line-height: 1.7;
+            "
+          >
+            💡
+            <strong style="color: var(--ink)">How it works:</strong> Commission
+            is deducted from each booking payout. Monthly fee is charged on the
+            1st of every month. Premium listings appear at the
+            <strong style="color: var(--coral)">top of search results</strong>
+            with a
+            <span
+              style="
+                background: linear-gradient(90deg, #1d4ed8, #2563eb);
+                color: white;
+                font-size: 0.6rem;
+                font-weight: 800;
+                padding: 1px 7px;
+                border-radius: 50px;
+              "
+              >VERIFIED</span
+            >
+            or
+            <span
+              style="
+                background: linear-gradient(90deg, #b45309, var(--gold));
+                color: white;
+                font-size: 0.6rem;
+                font-weight: 800;
+                padding: 1px 7px;
+                border-radius: 50px;
+              "
+              >GOLD</span
+            >
+            badge.
+          </div>
+
+          <div style="display: flex; gap: 10px">
+            <button
+              class="btn-s"
+              onclick="closeModal('modal-plans')"
+              style="flex: 1"
+            >
+              Maybe Later
+            </button>
+            <button
+              class="btn-p"
+              id="plan-confirm-btn"
+              onclick="confirmPlan()"
+              style="flex: 2"
+            >
+              Activate Plan →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CREATOR TRIPS ═══ -->
+    <div class="pg" id="pg-creator-trips">
+      <!-- HERO -->
+      <section class="ct-hero">
+        <div class="ct-hero-bg">
+          <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&q=80" alt="Group mountain adventure" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+          <div class="ct-hero-pattern"></div>
+          <div class="ct-orb ct-o1"></div>
+          <div class="ct-orb ct-o2"></div>
+        </div>
+        <div class="ct-hero-content">
+          <div
+            class="hero-badge"
+            style="
+              background: rgba(255, 255, 255, 0.12);
+              border-color: rgba(255, 255, 255, 0.22);
+            "
+          >
+            <div class="hero-dot"></div>
+            New · Creator Powered Trips
+          </div>
+          <h1
+            style="
+              font-family: &quot;Fraunces&quot;, serif;
+              font-size: clamp(1.8rem, 4vw, 3rem);
+              font-weight: 700;
+              color: white;
+              line-height: 1.15;
+              margin-bottom: 14px;
+            "
+          >
+            Travel with
+            <em style="font-style: italic; color: #ffb400">India's</em> Best
+            <strong style="color: #ff5a5f">Creators</strong>
+          </h1>
+          <p
+            style="
+              font-size: 0.92rem;
+              color: rgba(255, 255, 255, 0.65);
+              line-height: 1.8;
+              margin-bottom: 28px;
+              max-width: 480px;
+            "
+          >
+            Join curated group trips designed by top travel creators. Handpicked
+            stays, shared memories, unforgettable experiences.
+          </p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap">
+            <button
+              class="sb-btn"
+              onclick="
+                document
+                  .getElementById('ct-trips-section')
+                  .scrollIntoView({ behavior: 'smooth' })
+              "
+            >
+              <i class="fas fa-compass"></i> Explore Trips
+            </button>
+            <button
+              onclick="
+                document
+                  .getElementById('ct-creators-section')
+                  .scrollIntoView({ behavior: 'smooth' })
+              "
+              style="
+                padding: 12px 24px;
+                border-radius: 50px;
+                font-size: 0.86rem;
+                font-weight: 700;
+                cursor: pointer;
+                background: rgba(255, 255, 255, 0.12);
+                color: white;
+                border: 1.5px solid rgba(255, 255, 255, 0.25);
+                transition: all 0.2s;
+              "
+              onmouseover="this.style.background = 'rgba(255,255,255,.2)'"
+              onmouseout="this.style.background = 'rgba(255,255,255,.12)'"
+            >
+              <i class="fas fa-users"></i> Meet Creators
+            </button>
+          </div>
+        </div>
+        <div class="ct-hero-stats">
+          <div>
+            <div class="h-stat-n" id="ct-stat-trips">42+</div>
+            <div class="h-stat-l">Creator Trips</div>
+          </div>
+          <div>
+            <div class="h-stat-n" id="ct-stat-travelers">3,800+</div>
+            <div class="h-stat-l">Travelers Joined</div>
+          </div>
+          <div>
+            <div class="h-stat-n">18</div>
+            <div class="h-stat-l">Top Creators</div>
+          </div>
+          <div>
+            <div class="h-stat-n">4.9★</div>
+            <div class="h-stat-l">Avg Rating</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section
+        class="section"
+        style="
+          background: white;
+          border-bottom: 1px solid var(--border);
+          padding: 36px 5%;
+        "
+      >
+        <div class="sec-head" style="margin-bottom: 20px">
+          <h2>How Creator Trips Work</h2>
+        </div>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+          "
+        >
+          <div class="ct-how-card" data-n="01">
+            <div class="ct-how-ico" style="background: var(--coral-bg)">
+              <i class="fas fa-search" style="color: var(--coral)"></i>
+            </div>
+            <div class="ct-how-title">Browse Trips</div>
+            <div class="ct-how-desc">
+              Filter by destination, dates & vibe across creator-curated
+              itineraries.
+            </div>
+          </div>
+          <div class="ct-how-card" data-n="02">
+            <div class="ct-how-ico" style="background: var(--teal-bg)">
+              <i class="fas fa-user-check" style="color: var(--teal)"></i>
+            </div>
+            <div class="ct-how-title">Pick Your Creator</div>
+            <div class="ct-how-desc">
+              Follow creators whose travel style matches yours.
+            </div>
+          </div>
+          <div class="ct-how-card" data-n="03">
+            <div class="ct-how-ico" style="background: #fef3c7">
+              <i class="fas fa-credit-card" style="color: var(--gold)"></i>
+            </div>
+            <div class="ct-how-title">Book a Seat</div>
+            <div class="ct-how-desc">
+              Secure your spot instantly with confirmed booking receipt.
+            </div>
+          </div>
+          <div class="ct-how-card" data-n="04">
+            <div class="ct-how-ico" style="background: var(--coral-bg)">
+              <i class="fas fa-plane-departure" style="color: var(--coral)"></i>
+            </div>
+            <div class="ct-how-title">Travel Together</div>
+            <div class="ct-how-desc">
+              Meet your group, travel with the creator, make memories for life.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FILTER BAR -->
+      <div class="ct-filter-bar" id="ct-filter-bar">
+        <div class="ct-filter-row">
+          <div class="ct-filter-search">
+            <i
+              class="fas fa-search"
+              style="color: var(--ink3); font-size: 0.78rem; flex-shrink: 0"
+            ></i>
+            <input
+              type="text"
+              id="ct-search-input"
+              placeholder="Search trips, creators, places…"
+              oninput="ctFilterTrips()"
+            />
+          </div>
+          <div class="ct-chip on" data-cat="all" onclick="ctSetFilter(this)">
+            <i class="fas fa-globe"></i> All
+          </div>
+          <div class="ct-chip" data-cat="beach" onclick="ctSetFilter(this)">
+            🏖️ Beach
+          </div>
+          <div class="ct-chip" data-cat="mountains" onclick="ctSetFilter(this)">
+            🏔️ Mountains
+          </div>
+          <div class="ct-chip" data-cat="heritage" onclick="ctSetFilter(this)">
+            🏛️ Heritage
+          </div>
+          <div class="ct-chip" data-cat="adventure" onclick="ctSetFilter(this)">
+            🧗 Adventure
+          </div>
+          <div
+            class="ct-chip"
+            data-cat="international"
+            onclick="ctSetFilter(this)"
+          >
+            ✈️ International
+          </div>
+          <div class="ct-chip" data-cat="wellness" onclick="ctSetFilter(this)">
+            🧘 Wellness
+          </div>
+        </div>
+      </div>
+
+      <!-- TRIPS GRID -->
+      <section class="section" id="ct-trips-section">
+        <div class="sec-head">
+          <div>
+            <h2>Upcoming Creator Trips</h2>
+            <p style="font-size: 0.82rem; color: var(--ink3); margin-top: 4px">
+              Handpicked journeys with your favourite creators
+            </p>
+          </div>
+          <span class="see-all" id="ct-trip-count">Loading…</span>
+        </div>
+        <div
+          class="stays-grid"
+          id="ct-trips-grid"
+          style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))"
+        ></div>
+        <div id="ct-trips-empty" class="empty" style="display: none">
+          <div class="empty-ico">🔍</div>
+          <h3>No trips found</h3>
+          <p>Try a different filter or search</p>
+        </div>
+      </section>
+
+      <!-- FEATURED CREATORS -->
+      <section
+        class="section"
+        id="ct-creators-section"
+        style="background: white"
+      >
+        <div class="sec-head">
+          <div>
+            <h2>Featured Creators</h2>
+            <p style="font-size: 0.82rem; color: var(--ink3); margin-top: 4px">
+              Travel personalities crafting unique group experiences
+            </p>
+          </div>
+        </div>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 18px;
+          "
+          id="ct-creators-grid"
+        ></div>
+      </section>
+    </div>
+
+    <!-- TRIP DETAIL PAGE (Full Page View Like Stays) -->
+    <div class="pg" id="pg-trip-detail">
+      <section style="padding: 0; background: white;">
+        <div id="trip-detail-hero" style="background: linear-gradient(135deg, #1a1a2e 0%, #2d1b69 40%); color: white; padding: 32px 5%; text-align: center; min-height: 280px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <button onclick="goto('creator-trips')" style="align-self: flex-start; background: rgba(255,255,255,0.15); border: none; color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; margin-bottom: 24px; font-size: 0.85rem; font-weight: 600;">← Back to Trips</button>
+          <div id="trip-detail-emoji" style="font-size: 3.5rem; margin-bottom: 16px;">🎒</div>
+          <h1 id="trip-detail-title" style="font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 700; margin-bottom: 12px;">Trip Title</h1>
+          <div style="display: flex; gap: 20px; justify-content: center; font-size: 0.95rem; flex-wrap: wrap;">
+            <span><i class="fas fa-map-marker-alt" style="color: #ffb400; margin-right: 6px;"></i><span id="trip-detail-dest">Destination</span></span>
+            <span><i class="far fa-calendar" style="color: #ffb400; margin-right: 6px;"></i><span id="trip-detail-dates">Dates</span></span>
+            <span><i class="fas fa-clock" style="color: #ffb400; margin-right: 6px;"></i><span id="trip-detail-duration">Duration</span></span>
+          </div>
+        </div>
+      </section>
+
+      <div style="max-width: 1200px; margin: 0 auto; padding: 32px 5%; display: grid; grid-template-columns: 2fr 1fr; gap: 32px;">
+        <!-- LEFT SIDE - Main Info -->
+        <div>
+          <!-- Creator Info -->
+          <div style="background: var(--bg); padding: 20px; border-radius: var(--r-lg); margin-bottom: 28px; display: flex; gap: 16px;">
+            <div id="trip-detail-creator-avatar" style="width: 56px; height: 56px; border-radius: 50%; background: #ff5a5f; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 700; color: white; flex-shrink: 0;">A</div>
+            <div style="flex: 1;">
+              <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
+                <span id="trip-detail-creator-name" style="font-weight: 700; font-size: 0.95rem;">Creator Name</span>
+                <span style="background: var(--coral); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.6rem; font-weight: 800;">VERIFIED</span>
+              </div>
+              <div id="trip-detail-creator-handle" style="font-size: 0.75rem; color: var(--ink3); margin-bottom: 4px;">@handle · followers</div>
+              <div id="trip-detail-creator-rating" style="font-size: 0.75rem; color: var(--ink3);">★ 4.8 · 28 reviews</div>
+            </div>
+          </div>
+
+          <!-- About Trip -->
+          <div style="margin-bottom: 28px;">
+            <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-book" style="color: var(--coral);"></i> About the Trip</h2>
+            <p id="trip-detail-desc" style="font-size: 0.9rem; line-height: 1.8; color: var(--ink2);">Trip description goes here</p>
+          </div>
+
+          <!-- Highlights -->
+          <div style="margin-bottom: 28px;">
+            <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-star" style="color: var(--gold);"></i> Trip Highlights</h2>
+            <div id="trip-detail-highlights" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;"></div>
+          </div>
+
+          <!-- Itinerary -->
+          <div style="margin-bottom: 28px;">
+            <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-route" style="color: var(--teal);"></i> Day-by-Day Itinerary</h2>
+            <div id="trip-detail-itinerary" style="display: flex; flex-direction: column; gap: 14px;"></div>
+          </div>
+
+          <!-- Inclusions -->
+          <div style="margin-bottom: 28px;">
+            <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-check-circle" style="color: var(--teal);"></i> What's Included</h2>
+            <div id="trip-detail-inclusions" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px;"></div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE - Booking Card -->
+        <div style="position: sticky; top: 100px;">
+          <div style="background: white; border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; box-shadow: var(--shadow);">
+            <div style="margin-bottom: 20px;">
+              <div style="font-size: 0.75rem; color: var(--ink3); text-transform: uppercase; font-weight: 800; margin-bottom: 4px;">Price per person</div>
+              <div style="font-size: 2rem; font-weight: 700; color: var(--coral);">
+                ₹<span id="trip-detail-price">15,999</span>
+              </div>
+            </div>
+
+            <!-- Seat Status -->
+            <div style="margin-bottom: 20px; padding: 12px; background: var(--bg); border-radius: var(--r);">
+              <div style="font-size: 0.72rem; color: var(--ink3); margin-bottom: 8px; font-weight: 600;">Available Seats</div>
+              <div style="width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 8px;">
+                <div id="trip-detail-seat-fill" style="height: 100%; background: var(--teal); width: 35%;"></div>
+              </div>
+              <div style="font-size: 0.85rem; font-weight: 600; color: var(--ink);">
+                <span id="trip-detail-seats-left">15</span> of <span id="trip-detail-total-seats">25</span> left
+              </div>
+            </div>
+
+            <!-- Status Badge -->
+            <div id="trip-detail-status-badge" style="padding: 10px; border-radius: var(--r); text-align: center; font-weight: 600; font-size: 0.85rem; margin-bottom: 20px; background: #dcfce7; color: #16a34a;">
+              ✅ Booking Open
+            </div>
+
+            <!-- Book Button -->
+            <button id="trip-detail-book-btn" onclick="ctOpenBookingFromDetail()" style="width: 100%; padding: 14px; background: var(--coral); color: white; border: none; border-radius: var(--r); font-weight: 700; font-size: 1rem; cursor: pointer; margin-bottom: 12px; transition: all 0.2s;">
+              Book Now
+            </button>
+
+            <!-- Save Button -->
+            <button id="trip-detail-save-btn" onclick="ctToggleSaveFromDetail()" style="width: 100%; padding: 12px; background: white; color: var(--coral); border: 2px solid var(--coral); border-radius: var(--r); font-weight: 600; cursor: pointer; transition: all 0.2s;">
+              <i class="far fa-heart"></i> Save Trip
+            </button>
+
+            <!-- Reviews -->
+            <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border);">
+              <div style="font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                <i class="fas fa-star" style="color: var(--gold);"></i>
+                <span id="trip-detail-rating">4.8</span> 
+                <span style="color: var(--ink3); font-weight: 400; font-size: 0.85rem;">(<span id="trip-detail-review-count">28</span> reviews)</span>
+              </div>
+              <div id="trip-detail-reviews" style="display: flex; flex-direction: column; gap: 12px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRIP DETAIL MODAL -->
+    <div class="modal-bg" id="modal-ct-trip">
+      <div
+        class="modal"
+        style="max-width: 900px; padding: 0"
+        id="ct-trip-inner"
+      ></div>
+    </div>
+
+    <!-- TRIP BOOKING MODAL -->
+    <div class="modal-bg" id="modal-ct-booking">
+      <div class="modal" style="max-width: 480px" id="ct-booking-inner"></div>
+    </div>
+
+    <!-- CREATOR TRIPS ADMIN PANEL (within existing admin page) -->
+
+    <div id="toast"></div>
+
+    <!-- Page loading overlay — shown on Book Now / Reserve click -->
+    <div id="page-loader" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(255,255,255,0.92);align-items:center;justify-content:center;flex-direction:column;gap:16px">
+      <div id="page-loader-emoji" style="font-size:2.8rem;animation:loaderBounce .7s ease-in-out infinite alternate">✈️</div>
+      <div style="position:relative;width:56px;height:56px">
+        <div style="position:absolute;inset:0;border-radius:50%;border:4px solid #eaeaf0"></div>
+        <div style="position:absolute;inset:0;border-radius:50%;border:4px solid transparent;border-top-color:#ff5a5f;animation:loaderSpin .7s linear infinite"></div>
+      </div>
+      <div id="page-loader-msg" style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:#1a1a2e">Loading...</div>
+      <style>
+        @keyframes loaderSpin{to{transform:rotate(360deg)}}
+        @keyframes loaderBounce{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+      </style>
+    </div>
+
+    <!-- Main App Script -->
+    <script src="app.js"></script>
+
+    <!-- PLAN UPI PAYMENT MODAL -->
+    <div class="modal-bg" id="modal-plan-upi">
+      <div class="modal" style="max-width: 460px">
+        <div id="plan-upi-inner"></div>
+      </div>
+    </div>
+
+    <!-- CANCELLATION MODAL -->
+    <div class="modal-bg" id="modal-cancel">
+      <div class="modal" style="max-width: 440px">
+        <button class="modal-close" onclick="closeModal('modal-cancel')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body" id="cancel-modal-body"></div>
+      </div>
+    </div>
+
+    <!-- EMAIL RECEIPT MODAL -->
+    <div class="modal-bg" id="modal-email-receipt">
+      <div class="modal" style="max-width: 460px">
+        <button class="modal-close" onclick="closeModal('modal-email-receipt')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <div style="text-align: center; margin-bottom: 16px">
+            <div style="font-size: 2rem; margin-bottom: 6px">📧</div>
+            <div
+              style="
+                font-family: &quot;Fraunces&quot;, serif;
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin-bottom: 4px;
+              "
+            >
+              Booking Confirmation
+            </div>
+            <div style="font-size: 0.8rem; color: var(--ink3)">
+              Save or copy your booking receipt
+            </div>
+          </div>
+          <div id="email-receipt-body"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE BOOKING MODAL -->
+    <div class="modal-bg" id="modal-exp-booking">
+      <div class="modal" style="max-width: 440px">
+        <button class="modal-close" onclick="closeModal('modal-exp-booking')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body" id="exp-booking-body"></div>
+      </div>
+    </div>
+  </body>
+</html>
